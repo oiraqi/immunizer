@@ -1,0 +1,82 @@
+import java.io.*;
+import java.sql.*;
+import com.google.gson.*;
+import com.google.gson.stream.*;
+import java.lang.reflect.Method;
+
+public class LazySerializationHelper {
+
+    private static java.util.HashMap<String, Boolean> memory = new java.util.HashMap<String, Boolean>();
+
+    /**
+     * Checks whether we can go lazy on this
+     * Current rule is to skip objects with java.sql.* interfaces
+     * Other rules may be added "au fur et à mesure"
+     * @param object
+     * @param fqn
+     * @return
+     */
+    public static synchronized boolean skipType(Object object, String fqn) {
+        if (memory.containsKey(fqn))
+            return memory.get(fqn).booleanValue();
+
+        Class[] interfaces = object.getClass().getInterfaces();
+        for (Class interfaz : interfaces)
+            if (interfaz.getCanonicalName().startsWith("java.sql.")) {
+                memory.put(fqn, true);
+                return true;
+            }
+        memory.put(fqn, false);
+        return false;
+    }
+
+    /**
+     * Deprecated
+     * The whole purpose of lazy serialization is to avoid
+     * calling such a method. Indeed, instead of iterating
+     * over the sql result set and retrieve data from the
+     * database, and return back the cursor to its original
+     * position (-1), we will rather wait until the application
+     * itself retrieves the records. At that point, we will
+     * intercept the data.
+     * @param result
+     * @return
+     */
+    /*
+    public static String toJsonTree(Object result) {
+        StringWriter sw = new StringWriter();
+        Gson gson = new Gson();
+        try {
+            JsonWriter writer = gson.newJsonWriter(sw);
+            Method getMetaDataMethod = result.getClass().getMethod("getMetaData");
+            Object meta = getMetaDataMethod.invoke(result);
+            Method getColumnCountMethod = meta.getClass().getMethod("getColumnCount");
+            int cc = ((Integer) getColumnCountMethod.invoke(meta)).intValue();
+            writer.beginArray();
+            Method nextMethod = result.getClass().getMethod("next");
+            Method beforeFirstMethod = result.getClass().getMethod("beforeFirst");
+            Method getObjectMethod = result.getClass().getMethod("getObject", int.class);
+            Method getColumnNameMethod = meta.getClass().getMethod("getColumnName", int.class);
+            Method getColumnClassNameMethod = meta.getClass().getMethod("getColumnClassName", int.class);
+            while ((Boolean) nextMethod.invoke(result)) {
+                writer.beginObject();
+                for (int i = 1; i <= cc; ++i) {
+                    writer.name((String) getColumnNameMethod.invoke(meta, i));
+                    Class<?> type = Class.forName((String) getColumnClassNameMethod.invoke(meta, i));
+                    gson.toJson(getObjectMethod.invoke(result, i), type, writer);
+                    // writer.value(rs.getString(i));
+                }
+                writer.endObject();
+            }
+            writer.endArray();
+            writer.flush();
+            // Move back the cursor to initial position (-1). 
+            // May throw an exception depending on the driver. 
+            // The whole method is to be avoided anyway!
+            beforeFirstMethod.invoke(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sw.toString();
+    }*/
+}

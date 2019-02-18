@@ -1,0 +1,32 @@
+
+# Created by https://www.gitignore.io/api/java
+# Edit at https://www.gitignore.io/?templates=java
+
+# Folders To Exclude #
+apps/ofbiz/*
+apps/benchmark/*
+!apps/ofbiz/.gitkeep
+!apps/benchmark/pom.xml
+!apps/benchmark/README.txt
+framework/com/*
+framework/java/*
+framework/net/*
+models/benchmark/*
+models/ofbiz/*
+!models/benchmark/.gitkeep
+!models/ofbiz/.gitkeep
+out/*
+
+# Java compiled class files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# End of https://www.gitignore.io/api/java
