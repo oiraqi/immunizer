@@ -15,8 +15,9 @@ public class OFBizInterceptAgent {
 		System.out.println("Instrumenter launched!");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		new AgentBuilder.Default().ignore(nameStartsWith("net.bytebuddy."))
-				.type(nameStartsWith("org.apache.ofbiz.accounting.")
-						//.or(nameStartsWith("org.apache.ofbiz.manufacturing."))
+				.type(
+						nameStartsWith("org.apache.ofbiz.accounting.payment.")
+						.or(nameStartsWith("org.apache.ofbiz.accounting.invoice."))
 					)
 				.transform(new InterceptTransformer()).installOn(inst);
 	}

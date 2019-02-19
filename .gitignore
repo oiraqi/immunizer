@@ -16,6 +16,7 @@ models/ofbiz/*
 !models/benchmark/.gitkeep
 !models/ofbiz/.gitkeep
 out/*
+private/*
 
 # Java compiled class files #
 *.class

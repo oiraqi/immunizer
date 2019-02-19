@@ -72,6 +72,9 @@ public class FeatureExtractor {
 	 * @return The Feature Record
 	 */
 	public FeatureRecord extract(Invocation invocation) {
+		if (LazySerializationHelper.skipInvocation(invocation))
+			return null;
+		
 		HashMap<String, Double> record = new HashMap<String, Double>();
 		int[] lengths;
 		double[] minIF1s, minIF3s, pathToNodeMinFreqs, maxNumberVariations, maxStringLengthVariations;
@@ -87,8 +90,7 @@ public class FeatureExtractor {
 			else
 				callStackOccurences.put("" + callStackId, callStackOccurences.get("" + callStackId) + 1);
 		}
-		if (numberOfParams > 0 && invocation.returns() && !LazySerializationHelper.skipType(invocation.getResult(),
-				invocation.getFullyQualifiedMethodName())) {
+		if (numberOfParams > 0 && invocation.returns()) {
 			try {
 				parameters = gson.toJsonTree(invocation.getParams());
 				result = gson.toJsonTree(invocation.getResult());
@@ -105,7 +107,7 @@ public class FeatureExtractor {
 				synchronized (callStackOccurences) {
 					callStackOccurences.put("" + callStackId, callStackOccurences.get("" + callStackId) - 1);
 				}
-				System.out.println(invocation.getFullyQualifiedMethodName() + ": " + th.getMessage());
+				//System.out.println(invocation.getFullyQualifiedMethodName() + ": " + th.getMessage());
 				return null;
 			}
 			lengths = new int[numberOfParams + 1];
@@ -182,7 +184,7 @@ public class FeatureExtractor {
 				synchronized (callStackOccurences) {
 					callStackOccurences.put("" + callStackId, callStackOccurences.get("" + callStackId) - 1);
 				}
-				System.out.println(invocation.getFullyQualifiedMethodName() + ": " + th.getMessage());
+				//System.out.println(invocation.getFullyQualifiedMethodName() + ": " + th.getMessage());
 				return null;
 			}
 			lengths = new int[numberOfParams];
@@ -220,8 +222,7 @@ public class FeatureExtractor {
 					record.put("p_" + i + "_number_variation", maxNumberVariations[i]);
 				}
 			}
-		} else if (invocation.returns() && !LazySerializationHelper.skipType(invocation.getResult(),
-				invocation.getFullyQualifiedMethodName())) {
+		} else if (invocation.returns()) {
 			try {
 				result = gson.toJsonTree(invocation.getResult());
 			} catch (Throwable th) {
@@ -237,7 +238,7 @@ public class FeatureExtractor {
 				synchronized (callStackOccurences) {
 					callStackOccurences.put("" + callStackId, callStackOccurences.get("" + callStackId) - 1);
 				}
-				System.out.println(invocation.getFullyQualifiedMethodName() + ": " + th.getMessage());
+				//System.out.println(invocation.getFullyQualifiedMethodName() + ": " + th.getMessage());
 				return null;
 			}
 			lengths = new int[1];
@@ -293,7 +294,7 @@ public class FeatureExtractor {
 			}
 			models.get(model).println(featureRecord.getValues());
 			flushCounters.put(model, flushCounters.get(model) + 1);
-			if (flushCounters.get(model) >= bufferSize) {	// Can't survive without buffering. Typical bufferSize values: [100 - 1000]
+			if (flushCounters.get(model) >= bufferSize) {	// Typical bufferSize values: [100 - 500]
 				models.get(model).flush();
 				flushCounters.put(model, 0);
 			}
