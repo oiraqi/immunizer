@@ -58,11 +58,10 @@ public class FeatureRecord {
 
     public String getModel() {
         String method = fullyQualifiedMethodName
-                .substring(fullyQualifiedMethodName.indexOf(' '), fullyQualifiedMethodName.indexOf(')')).trim();
-        if (method.indexOf(' ') > 0)
-            method = method.substring(method.indexOf(' ')).trim();
-        method = method.replace('.', '_').replace('(', '_').replace(',', '_').replace(' ', '_');
-        return (method.endsWith("_")) ? method + callStackId : method + '_' + callStackId;
+                .substring(0, fullyQualifiedMethodName.indexOf(')') + 1).trim();
+        
+        method = method.replace(' ', '_');
+        return method + '_' + callStackId;
     }
 
     public String getValues() {

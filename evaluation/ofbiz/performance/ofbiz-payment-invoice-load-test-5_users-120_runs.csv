@@ -1,0 +1,20 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+40 /accounting/control/main,1200,91,31,6162,396.61,0.000%,2.74276,13.27,1.36,4953.3
+51 /accounting/control/login,1200,101,40,1879,132.65,0.000%,2.78153,20.92,2.88,7700.7
+52 /accounting/control/main,600,51,21,1125,95.39,0.000%,1.39320,6.76,0.82,4972.1
+101 /accounting/control/findInvoices,1200,1038,681,4986,412.26,0.000%,2.78900,17.56,3.05,6446.5
+106 /accounting/control/invoiceOverview,1200,1088,723,3024,269.23,0.000%,2.81658,19.85,1.69,7217.9
+109 /accounting/control/editInvoice,1200,283,150,1926,137.80,0.000%,2.83482,30.70,2.83,11087.9
+110 /accounting/control/LookupPartyName,600,43,8,1047,101.85,0.000%,1.42033,1.15,1.08,828.0
+117 /accounting/control/updateInvoice,1200,278,149,741,84.72,0.000%,2.84302,30.78,4.29,11087.9
+119 /accounting/control/LookupPartyName,600,25,8,289,29.92,0.000%,1.42352,1.15,1.06,828.0
+124 /accounting/control/findPayments,1200,62,31,516,42.66,0.000%,2.84705,16.70,1.64,6008.1
+133 /accounting/control/findPayments,1200,382,157,1567,156.55,0.000%,2.84806,40.45,6.69,14544.9
+135 /accounting/control/paymentOverview,600,80,40,591,55.24,0.000%,1.42638,8.12,0.85,5832.1
+136 /accounting/control/editPayment,600,75,41,341,36.40,0.000%,1.42820,12.81,0.88,9184.5
+137 /accounting/control/LookupPartyName,600,24,8,449,35.72,0.000%,1.42908,1.15,1.08,821.0
+138 /accounting/control/LookupPartyName,600,21,8,571,27.11,0.000%,1.42910,1.16,1.07,830.0
+142 /accounting/control/updatePayment,1200,114,49,454,53.45,0.000%,2.85758,27.93,5.22,10010.0
+143 /accounting/control/LookupPartyName,600,22,8,216,20.96,0.000%,1.42981,1.15,1.06,821.0
+144 /accounting/control/LookupPartyName,600,21,8,224,20.87,0.000%,1.42987,1.16,1.05,830.0
+TOTAL,16200,268,8,6162,396.72,0.000%,36.81676,243.77,37.18,6780.0

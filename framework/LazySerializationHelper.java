@@ -41,7 +41,10 @@ public class LazySerializationHelper {
             memory.put(fqn, true);
             return true;
         }
-        for (Object object : objects) {      
+        for (Object object : objects) {
+            if(object == null)
+                continue;
+                      
             Class[] interfaces = object.getClass().getInterfaces();
             for (Class interfaz : interfaces)
                 if (interfaz.getCanonicalName().startsWith("java.sql.")) {
