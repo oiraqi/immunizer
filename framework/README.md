@@ -8,4 +8,6 @@
 
 - ***InterceptAgent**: the intercept agents, each one instrumenting a specific application
 
+- **ResultSetAdapter**: deprecated in favor of LazySerializationHelper
+
 - **BenchmarkFeatureRecord**: a decorator/wrapper class around FeatureRecord to better organize OWASP Benchmark models according to test cases
