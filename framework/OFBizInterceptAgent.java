@@ -15,10 +15,13 @@ public class OFBizInterceptAgent {
 		System.out.println("Instrumenter launched!");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		new AgentBuilder.Default().ignore(nameStartsWith("net.bytebuddy."))
-				.type(
-						nameStartsWith("org.apache.ofbiz.accounting.invoice.")
-						//.or(nameStartsWith("org.apache.ofbiz.accounting.invoice."))
-					)
+				.type(named("org.apache.ofbiz.webapp.control.ControlFilter")
+						/**
+						 * nameStartsWith("org.apache.ofbiz.accounting.invoice.")
+						 * .or(nameStartsWith("org.apache.ofbiz.accounting.payment."))
+						 * .or(nameStartsWith("org.apache.ofbiz.accounting.util."))
+						 */
+						.or(named("org.apache.ofbiz.entity.datasource.GenericDAO")))
 				.transform(new InterceptTransformer()).installOn(inst);
 	}
 
@@ -27,11 +30,8 @@ public class OFBizInterceptAgent {
 		public DynamicType.Builder<?> transform(final DynamicType.Builder<?> builder,
 				final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module) {
 
-			return builder.method(isPublic())
-					.intercept(Advice.to(ModelViewMethodAdvice.class))
-					/*.method(isPublic().and(nameStartsWith("execute").or(named("prepareCall"))
-							.or(named("prepareStatement")).or(nameStartsWith("print")).or(nameStartsWith("write"))))
-					.intercept(Advice.to(ModelViewMethodAdvice.class))*/;
+			return builder.method(isPublic().and(named("doFilter"))).intercept(Advice.to(ControllerMethodAdvice.class))
+					.method(isPublic().and(named("update"))).intercept(Advice.to(ModelViewMethodAdvice.class));
 		}
 	}
 
@@ -40,35 +40,33 @@ public class OFBizInterceptAgent {
 		public static FeatureExtractor featureExtractorSingleton = FeatureExtractor.getSingleton();
 
 		@Advice.OnMethodEnter
-		public static Invocation onEnter(@Advice.This Object object, @Advice.Origin String fullyQualifiedMethodName,
+		public static Invocation onEnter(/*@Advice.This Object object, */@Advice.Origin String fullyQualifiedMethodName,
 				@Advice.AllArguments Object[] params) {
 
-			System.out.println(fullyQualifiedMethodName);
-
-			/*if (fullyQualifiedMethodName.indexOf(".getMethod()") > 0) {
-				String userAgent = null;
-				try {
-					userAgent = (String) object.getClass().getMethod("getHeader", java.lang.String.class).invoke(object,
-							"User-Agent");
-					if (userAgent == null || !userAgent.equals("JMeter")) {
-						userAgent = (String) object.getClass().getMethod("getHeader", java.lang.String.class)
-								.invoke(object, "BenchmarkTest00008");
-						if (userAgent != null && userAgent.equals("verifyUserPassword('foo','bar')"))
-							userAgent = "ZAPNULL";
-						else
-							userAgent = "ZAP";
-					}
-				} catch (Exception ex) {
+			String userAgent = null;
+			try {
+				userAgent = (String) params[0].getClass().getMethod("getHeader", java.lang.String.class).invoke(params[0],
+						"User-Agent");
+				if (userAgent == null || !userAgent.equals("JMeter")) {
+					userAgent = "ZAP"; /**
+										 * Label it as true positive, just for automatic evaluation 
+										 * of intrusion/oulier detection results
+										 */
 				}
-				long threadTag = Math.abs(new Random().nextLong());
-				Thread currentThread = Thread.currentThread();
-				int index = currentThread.getName().indexOf("#");
-				if (index > 0) {
-					String threadBasicName = currentThread.getName().substring(0, index + 1);
-					currentThread.setName(threadBasicName + threadTag + ' ' + userAgent);
-				} else
-					currentThread.setName(currentThread.getName() + "#" + threadTag + ' ' + userAgent);
-			}*/
+			} catch (Exception ex) {
+			}
+			long threadTag = Math.abs(new Random().nextLong());
+			Thread currentThread = Thread.currentThread();
+			int index = currentThread.getName().indexOf("#");
+			if (index > 0) {
+				String threadBasicName = currentThread.getName().substring(0, index + 1);
+				currentThread.setName(threadBasicName + threadTag + ' ' + userAgent);
+			} else
+				currentThread.setName(currentThread.getName() + "#" + threadTag + ' ' + userAgent);
+
+			System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+			System.out.println(currentThread.getName());
+			System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 
 			return new Invocation("1.0", fullyQualifiedMethodName, params);
 		}
@@ -76,16 +74,7 @@ public class OFBizInterceptAgent {
 		@Advice.OnMethodExit
 		public static void onExit(@Advice.Enter Invocation invocation,
 				@Advice.Return(typing = Assigner.Typing.DYNAMIC) Object result) {
-			if (invocation.returns()) {
-				if (result == null)
-					invocation.update("NULL", false);
-				else
-					invocation.update(result, false);
-			} else
-				invocation.update(null, false);
-			FeatureRecord featureRecord = featureExtractorSingleton.extract(invocation);
-			if (featureRecord != null)
-				featureExtractorSingleton.log(featureRecord);
+			// Do nothing here
 		}
 	}
 
@@ -103,9 +92,35 @@ public class OFBizInterceptAgent {
 		@Advice.OnMethodExit(onThrowable = Throwable.class)
 		public static void onExit(@Advice.Enter Invocation invocation,
 				@Advice.Return(typing = Assigner.Typing.DYNAMIC) Object result, @Advice.Thrown Throwable thrown) {
+
+			/**
+			 * Only intercept relevant calls to
+			 * org.apache.ofbiz.entity.datasource.GenericDAO.update Relevant calls are the
+			 * ones that carry user provided data. Other calls to the update method are
+			 * triggered by OFBiz for some system-level logging such as web stats.
+			 */
+			if (invocation.getFullyQualifiedMethodName().equals(
+					"public int org.apache.ofbiz.entity.datasource.GenericDAO.update(org.apache.ofbiz.entity.GenericEntity) throws org.apache.ofbiz.entity.GenericEntityException")) {
+				boolean relevant = false;
+				//System.out.println("XXXXXXXXXXXXXXXXXXXXXXXX");
+				for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+					//System.out.println(ste);
+					if (ste.getClassName().equals("org.apache.ofbiz.minilang.SimpleMethod")) {
+						relevant = true;
+						break;
+					}
+				}
+				//System.out.println("XXXXXXXXXXXXXXXXXXXXXXXX");
+				if (!relevant)
+					return;
+			}
 			if (invocation.returns()) {
-				if (thrown != null)
-					invocation.update("NULL", true);
+				if (thrown != null){
+					if(invocation.returnsNumber())
+						invocation.update(Integer.valueOf("0"), true);
+					else
+						invocation.update("NULL", true); 
+				}
 				else if (result == null)
 					invocation.update("NULL", false);
 				else

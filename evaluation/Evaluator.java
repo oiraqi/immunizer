@@ -14,12 +14,12 @@ public class Evaluator{
     }
 
     public static void main(String[] args) throws Exception{
-        String folder = args[0];
-        int r = Integer.parseInt(args[1]);
+        String elkiOutFolder = args[0];
+        String evaluationOutFolder = args[1];
+        int r = Integer.parseInt(args[2]);
         BufferedWriter bw = new BufferedWriter(
-                                    new OutputStreamWriter(new FileOutputStream("r_precision.txt")));
-        File directory = new File("out/" + folder);
-        File[] subFolders = directory.listFiles();
+                                    new OutputStreamWriter(new FileOutputStream(evaluationOutFolder + "/r_precision.txt")));
+        File[] subFolders = new File(elkiOutFolder).listFiles();
         for(File subFolder : subFolders){
             File[] files = subFolder.listFiles();
             for(File file : files){

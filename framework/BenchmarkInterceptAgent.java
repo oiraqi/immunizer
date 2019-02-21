@@ -53,9 +53,15 @@ public class BenchmarkInterceptAgent {
 						userAgent = (String) object.getClass().getMethod("getHeader", java.lang.String.class)
 								.invoke(object, "BenchmarkTest00008");
 						if (userAgent != null && userAgent.equals("verifyUserPassword('foo','bar')"))
-							userAgent = "ZAPNULL";
+							userAgent = "ZAPNULL"; /**
+													 * Label it as false positive, just for automatic evaluation of
+													 * intrusion/oulier detection results
+													 */
 						else
-							userAgent = "ZAP";
+							userAgent = "ZAP"; /**
+												 * Label it as true positive, just for automatic evaluation of
+												 * intrusion/oulier detection results
+												 */
 					}
 				} catch (Exception ex) {
 				}

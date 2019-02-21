@@ -157,7 +157,7 @@ public class FeatureExtractor {
 				record.put("r_min_if3", getSmoothedMinIF3("" + callStackId + "_r", minIF3s[numberOfParams]));
 				record.put("r_length_variation",
 						getVariation("" + callStackId + "_r_length", (double) lengths[numberOfParams]));
-			} else if (result.isJsonPrimitive() && result.getAsJsonPrimitive().isNumber()) {
+			} else if (invocation.returnsNumber()) {
 				record.put("r_number_variation", maxNumberVariations[numberOfParams]);
 			} else {
 				record.put("r_length_variation",

@@ -8,6 +8,7 @@ public class Invocation {
 	private Object result;
 	private boolean _returns;
 	private boolean _returnsString;
+	private boolean _returnsNumber;
 	private boolean exception;
 	private long startTime;
 	private long endTime;
@@ -22,12 +23,26 @@ public class Invocation {
 		this.params = params;
 		exception = false;
 		_returns = fullyQualifiedMethodName.indexOf(" void ") == -1;
-		_returnsString = fullyQualifiedMethodName.indexOf("java.lang.String ") > 0
-				&& fullyQualifiedMethodName.indexOf("java.lang.String ") < fullyQualifiedMethodName.indexOf("(")
-				&& (fullyQualifiedMethodName.indexOf("<") == -1
-						|| fullyQualifiedMethodName.indexOf("<") > fullyQualifiedMethodName.indexOf("("))
-				&& (fullyQualifiedMethodName.indexOf("[") == -1
-						|| fullyQualifiedMethodName.indexOf("[") > fullyQualifiedMethodName.indexOf("("));
+		if ((fullyQualifiedMethodName.indexOf("<") >= 0
+				&& fullyQualifiedMethodName.indexOf("<") < fullyQualifiedMethodName.indexOf("("))
+				|| (fullyQualifiedMethodName.indexOf("[") >= 0
+						&& fullyQualifiedMethodName.indexOf("[") < fullyQualifiedMethodName.indexOf("("))) {
+			_returnsString = false;
+			_returnsNumber = false;
+		} else {
+			_returnsString = fullyQualifiedMethodName.indexOf("java.lang.String ") > 0
+					&& fullyQualifiedMethodName.indexOf("java.lang.String ") < fullyQualifiedMethodName.indexOf("(");
+			if (_returnsString)
+				_returnsNumber = false;
+			else {
+				_returnsNumber = (fullyQualifiedMethodName.indexOf("int ") > 0
+						&& fullyQualifiedMethodName.indexOf("int ") < fullyQualifiedMethodName.indexOf("("))
+						|| (fullyQualifiedMethodName.indexOf("float ") > 0
+								&& fullyQualifiedMethodName.indexOf("float ") < fullyQualifiedMethodName.indexOf("("))
+						|| (fullyQualifiedMethodName.indexOf("double ") > 0
+								&& fullyQualifiedMethodName.indexOf("double ") < fullyQualifiedMethodName.indexOf("("));
+			}
+		}
 	}
 
 	public void update(Object result, boolean exception) {
@@ -84,6 +99,10 @@ public class Invocation {
 
 	public boolean returnsString() {
 		return _returnsString;
+	}
+
+	public boolean returnsNumber() {
+		return _returnsNumber;
 	}
 
 	public int getNumberOfParams() {
