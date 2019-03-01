@@ -2,8 +2,10 @@ This is a proof of concept Java implementation of our Framework for Immune Appli
 
 **Dependencies**
 - OpenJDK 10: mainly to support ByteBuddy
-- ByteBuddy 1.8.3: to instrument applications at runtime 
+- Gradle 4.10.3: to support OpenJDK 10
+- ByteBuddy 1.8.3: to instrument applications at runtime
 - Gson 2.8.5: to generate JSON trees out of invocation parameters and returned values
+- Guava 23.0: to use some Google Common classes such as com.google.common.base.Splitter and com.google.common.hash.Hashing
 - ELKI 0.7: to apply several outlier detection algorithms and distance functions
 
 **Structure**
