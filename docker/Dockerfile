@@ -24,8 +24,8 @@ RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle"
 RUN apt-get install -qy git
 WORKDIR /home
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
-#RUN cd immune-apps/apps
-#RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
+RUN cd immune-apps/apps
+RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
 
 # cleanup
 RUN apt-get -qy autoremove
