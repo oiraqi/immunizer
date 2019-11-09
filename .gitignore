@@ -20,5 +20,7 @@ models/ofbiz/*
 !models/ofbiz/.gitkeep
 out/*
 private/*
+apps/*
+evaluation/*.java
 
 # End of https://www.gitignore.io/api/java
