@@ -8,6 +8,7 @@ apps/benchmark/*
 !apps/ofbiz/.gitkeep
 !apps/benchmark/pom.xml
 !apps/benchmark/README.txt
+framework/build/*
 framework/com/*
 framework/java/*
 framework/net/*

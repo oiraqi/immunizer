@@ -1,0 +1,29 @@
+plugins {
+        id 'java'
+}
+
+group = 'immune-apps'
+version = '1.0'
+sourceCompatibility = '1.8'
+
+repositories {
+        mavenCentral()
+}
+
+dependencies {
+        implementation 'net.bytebuddy:byte-buddy:1.10.2'
+        implementation 'com.google.code.gson:gson:2.8.6'
+        implementation 'com.google.guava:guava:28.1-jre'
+        runtimeOnly 'net.bytebuddy:byte-buddy:1.10.2'
+        runtimeOnly 'com.google.code.gson:gson:2.8.6'
+        runtimeOnly 'com.google.guava:guava:28.1-jre'
+}
+
+task agentFatJar(type: Jar) {
+    manifest {
+        attributes 'Premain-Class': 'OFBizInterceptAgent'
+    }
+    archiveBaseName = 'ofbiz-intercept-agent'
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
