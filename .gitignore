@@ -3,6 +3,8 @@
 # Edit at https://www.gitignore.io/?templates=java
 
 # Folders To Exclude #
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
 apps/ofbiz/*
 apps/benchmark/*
 !apps/ofbiz/.gitkeep
