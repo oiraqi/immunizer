@@ -22,7 +22,7 @@ RUN apt-get install -qy git
 WORKDIR /root
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
 RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
-WORKDIR /root/immune-apps
+WORKDIR /root/immune-apps/framework
 RUN ./gradlew agentFatJar
 WORKDIR /root/ofbiz
 RUN mkdir plugins
