@@ -6,7 +6,7 @@ MAINTAINER Omar Iraqi
 
 # extra metadata
 LABEL version="1.0"
-LABEL description="Docker Image for Ubuntu, OpenJDK 8, Git, curl"
+LABEL description="Docker Image for Ubuntu, OpenJDK 8, Apache OFBiz and Immune Apps Framework"
 
 # update sources list
 RUN apt-get clean
