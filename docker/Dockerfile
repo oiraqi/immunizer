@@ -23,6 +23,7 @@ WORKDIR /root
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
 #RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
 WORKDIR /root/immune-apps/framework
+RUN ls
 RUN ./gradlew build
 RUN ./gradlew agentFatJar
 #WORKDIR /root/ofbiz
