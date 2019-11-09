@@ -18,9 +18,6 @@ RUN apt-get install -qy openjdk-8-jdk
 RUN apt-get install -qy locales
 RUN apt-get install -qy vim
 RUN apt-get install -qy zip unzip
-RUN apt-get install -qy curl
-RUN curl -s "https://get.sdkman.io" | bash
-RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle"
 RUN apt-get install -qy git
 WORKDIR /root
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
