@@ -12,7 +12,7 @@ public class LazySerializationHelper {
      * Checks whether we can go lazy on this. 
      * Current rule is to skip objects with java.sql.* interfaces.
      * Other rules are specific to OFBiz (quick'n dirty, should be moved elsewhere)
-     * Other rules may be added "au fur et à mesure"
+     * Other rules may be added as needed
      * 
      * @param object
      * @param fqn
