@@ -14,9 +14,6 @@ dependencies {
         implementation 'net.bytebuddy:byte-buddy:1.10.2'
         implementation 'com.google.code.gson:gson:2.8.6'
         implementation 'com.google.guava:guava:28.1-jre'
-        runtimeOnly 'net.bytebuddy:byte-buddy:1.10.2'
-        runtimeOnly 'com.google.code.gson:gson:2.8.6'
-        runtimeOnly 'com.google.guava:guava:28.1-jre'
 }
 
 task ofbizAgent(type: Jar) {
