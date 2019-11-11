@@ -10,6 +10,9 @@ apps/benchmark/*
 !apps/ofbiz/.gitkeep
 !apps/benchmark/pom.xml
 !apps/benchmark/README.txt
+framework/.settings/*
+framework/.vscode/*
+framework/bin/*
 framework/build/*
 framework/com/*
 framework/java/*
