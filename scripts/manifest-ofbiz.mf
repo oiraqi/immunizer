@@ -1,0 +1,2 @@
+Premain-Class: org.immunizer.apps.ofbiz.OFBizImmunizerAgent
+Boot-Class-Path: .:../immune-apps/framework/build/libs/agent-libs-1.0.jar

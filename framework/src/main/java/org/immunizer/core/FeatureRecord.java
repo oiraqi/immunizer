@@ -1,4 +1,5 @@
-import java.util.Collection;
+package org.immunizer.core;
+
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -79,5 +80,21 @@ public class FeatureRecord {
 
     public long getEndTime() {
         return endTime;
+    }
+
+    public String getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

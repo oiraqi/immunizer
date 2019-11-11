@@ -1,10 +1,20 @@
+package org.immunizer.core.helpers;
+
 import java.io.*;
 import java.sql.*;
 import com.google.gson.*;
 import com.google.gson.stream.*;
 
-public class ResultSetAdapter extends TypeAdapter<ResultSet> {
-    public static class NotImplemented extends RuntimeException {}
+public class ResultSetHelper extends TypeAdapter<ResultSet> {
+    
+    public static class NotImplemented extends RuntimeException {
+
+        /**
+         *
+         */
+        private static final long serialVersionUID = 4847805023368463275L;
+    }
+
     private static final Gson gson = new Gson();
     public ResultSet read(JsonReader reader)
         throws IOException {

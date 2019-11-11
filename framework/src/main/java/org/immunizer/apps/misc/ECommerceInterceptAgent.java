@@ -1,3 +1,5 @@
+package org.immunizer.apps.misc;
+
 import java.lang.instrument.Instrumentation;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.utility.JavaModule;
@@ -8,6 +10,10 @@ import net.bytebuddy.asm.Advice;
 import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
+
+import org.immunizer.core.FeatureExtractor;
+import org.immunizer.core.FeatureRecord;
+import org.immunizer.core.Invocation;
 
 public class ECommerceInterceptAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {

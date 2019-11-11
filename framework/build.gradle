@@ -2,7 +2,7 @@ plugins {
         id 'java'
 }
 
-group = 'immune-apps'
+group = 'org.immunizer'
 version = '1.0'
 sourceCompatibility = '1.8'
 
@@ -16,11 +16,9 @@ dependencies {
         implementation 'com.google.guava:guava:28.1-jre'
 }
 
-task ofbizAgent(type: Jar) {
-    manifest {
-        attributes 'Premain-Class': 'OFBizInterceptAgent'
-    }
-    archiveBaseName = 'ofbiz-intercept-agent'
+task agentLibs(type: Jar) {
+    manifest { }
+    archiveBaseName = 'agent-libs'
     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }

@@ -1,34 +1,27 @@
-import java.util.ArrayList;
+package org.immunizer.core;
+
 import java.util.Iterator;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+
+import org.immunizer.core.helpers.LazySerializationHelper;
+
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.File;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.io.IOException;
 import com.google.common.base.Splitter;
 
-@SuppressWarnings("unchecked")
 public class FeatureExtractor {
 
 	private HashMap<String, Integer> dictionary, callStackOccurences, pathToNodeOccurences,
 			aggregatedPathToNodeOccurences, flushCounters, csCounters1, csCounters3;
 	private HashMap<String, HashMap<String, Double>> cmqs;
 	private Gson gson;
-	private JsonParser jsonParser;
 	private HashMap<String, PrintWriter> models;
-	private int flushCounter;
 	private static FeatureExtractor singleton;
 	private HashMap<String, Double> sumMinIF1s, sumMinIF3s;
 	private String modelsRepository;
@@ -45,7 +38,6 @@ public class FeatureExtractor {
 		csCounters1 = new HashMap<String, Integer>();
 		csCounters3 = new HashMap<String, Integer>();
 		gson = new Gson();
-		jsonParser = new JsonParser();
 		models = new HashMap<String, PrintWriter>();
 		sumMinIF1s = new HashMap<String, Double>();
 		sumMinIF3s = new HashMap<String, Double>();
@@ -355,7 +347,7 @@ public class FeatureExtractor {
 							maxStringLengthVariations);
 		} else if (jsonElement.isJsonObject()) {
 			JsonObject jsonObject = jsonElement.getAsJsonObject();
-			Iterator keys = jsonObject.keySet().iterator();
+			Iterator<String> keys = jsonObject.keySet().iterator();
 			while (keys.hasNext()) {
 				String key = (String) keys.next();
 				build(callStackId, pathToNode.isEmpty() ? key : pathToNode + '_' + key,

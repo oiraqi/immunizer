@@ -1,8 +1,6 @@
-import java.io.*;
-import java.sql.*;
-import com.google.gson.*;
-import com.google.gson.stream.*;
-import java.lang.reflect.Method;
+package org.immunizer.core.helpers;
+
+import org.immunizer.core.Invocation;
 
 public class LazySerializationHelper {
 
@@ -45,8 +43,8 @@ public class LazySerializationHelper {
             if(object == null)
                 continue;
                       
-            Class[] interfaces = object.getClass().getInterfaces();
-            for (Class interfaz : interfaces)
+            Class<?>[] interfaces = object.getClass().getInterfaces();
+            for (Class<?> interfaz : interfaces)
                 if (interfaz.getCanonicalName().startsWith("java.sql.")) {
                     memory.put(fqn, true);
                     return true;

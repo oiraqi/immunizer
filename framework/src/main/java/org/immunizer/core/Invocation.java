@@ -1,3 +1,5 @@
+package org.immunizer.core;
+
 import com.google.common.hash.Hashing;
 
 public class Invocation {

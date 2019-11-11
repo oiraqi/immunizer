@@ -1,4 +1,8 @@
+package org.immunizer.apps.misc;
+
 import java.util.HashMap;
+
+import org.immunizer.core.FeatureRecord;
 
 /**
  * A FeatureRecord decorator/wrapper to organize models in

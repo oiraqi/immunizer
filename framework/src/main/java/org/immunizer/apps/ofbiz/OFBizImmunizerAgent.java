@@ -1,3 +1,5 @@
+package org.immunizer.apps.ofbiz;
+
 import java.lang.instrument.Instrumentation;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.utility.JavaModule;
@@ -9,7 +11,11 @@ import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
 
-public class OFBizInterceptAgent {
+import org.immunizer.core.FeatureExtractor;
+import org.immunizer.core.FeatureRecord;
+import org.immunizer.core.Invocation;
+
+public class OFBizImmunizerAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		System.out.println("Instrumenter launched!");
@@ -38,7 +44,7 @@ public class OFBizInterceptAgent {
 			// should keep just .method(isPublic()) for general scenarios and efficiency
 			// evaluation
 			return builder.method(isPublic().and(named("doFilter"))).intercept(Advice.to(ControllerMethodAdvice.class))
-					.method(isPublic().and(named("update"))).intercept(Advice.to(ModelViewMethodAdvice.class));
+					.method(isPublic().and(named("update"))).intercept(Advice.to(ModelMethodAdvice.class));
 		}
 	}
 
@@ -86,7 +92,7 @@ public class OFBizInterceptAgent {
 		}
 	}
 
-	public static class ModelViewMethodAdvice {
+	public static class ModelMethodAdvice {
 
 		public static FeatureExtractor featureExtractorSingleton = FeatureExtractor.getSingleton();
 
