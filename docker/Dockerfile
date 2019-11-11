@@ -20,7 +20,7 @@ RUN apt-get install -qy vim
 RUN apt-get install -qy zip unzip
 RUN apt-get install -qy git
 WORKDIR /root
-RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
+RUN git clone https://github.com/oiraqi/immune-apps.git
 RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
 WORKDIR /root/immune-apps/framework
 RUN ./gradlew ofbizAgent
