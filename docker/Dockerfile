@@ -29,7 +29,7 @@ RUN ./gradlew ofbizAgent
 #RUN ./gradlew cleanAll loadDefault
 WORKDIR /root
 RUN echo cd ofbiz > run.sh
-RUN echo java -javaagent:../immune-apps/framework/build/libs/ofbiz-intercept-agent-1.0.jar -Dmodels=../immune-apps/models/ofbiz -Dbuffer=100 -Dskip=5000 >> run.sh
+RUN echo java -javaagent:../immune-apps/framework/build/libs/ofbiz-intercept-agent-1.0.jar -Dmodels=../immune-apps/models/ofbiz -Dbuffer=100 -Dskip=5000 -jar build/libs/ofbiz.jar >> run.sh
 RUN chmod +x run.sh
 
 # cleanup
