@@ -1,6 +1,7 @@
 This is a proof of concept Java implementation of our Framework for Immune Applications through Application-level Unsupervised Outlier-based Intrusion Detection and Prevention.
 
 **Dependencies**
+
 All dependencies are managed through Docker and Gradle. Docker is all what you need, while Gradle distribution will be automatically fetched by Gradle wrapper, which will be downloaded from this repository by Docker.
 
 **Structure**
