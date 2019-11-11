@@ -19,7 +19,7 @@ dependencies {
         runtimeOnly 'com.google.guava:guava:28.1-jre'
 }
 
-task agentFatJar(type: Jar) {
+task ofbizAgent(type: Jar) {
     manifest {
         attributes 'Premain-Class': 'OFBizInterceptAgent'
     }

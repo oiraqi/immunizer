@@ -21,14 +21,16 @@ RUN apt-get install -qy zip unzip
 RUN apt-get install -qy git
 WORKDIR /root
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
-RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
+#RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
 WORKDIR /root/immune-apps/framework
-RUN ./gradlew agentFatJar
-WORKDIR /root/ofbiz
-RUN mkdir plugins
-RUN ./gradlew cleanAll loadDefault
-RUN echo org.gradle.jvmargs=-javaagent:/root/immune-apps/framework/build/libs/ofbiz-intercept-agent-1.0.jar -Dmodels=/root/immune-apps/models/ofbiz -Dbuffer=100 -Dskip=5000 > gradle.properties
+RUN ./gradlew ofbizAgent
+#WORKDIR /root/ofbiz
+#RUN mkdir plugins
+#RUN ./gradlew cleanAll loadDefault
 WORKDIR /root
+RUN echo cd ofbiz > run.sh
+RUN echo java -javaagent:../immune-apps/framework/build/libs/ofbiz-intercept-agent-1.0.jar -Dmodels=../immune-apps/models/ofbiz -Dbuffer=100 -Dskip=5000 >> run.sh
+RUN chmod +x run.sh
 
 # cleanup
 RUN apt-get -qy autoremove
