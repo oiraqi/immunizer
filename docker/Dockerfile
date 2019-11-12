@@ -23,7 +23,7 @@ WORKDIR /root
 RUN git clone --progress --verbose https://github.com/apache/ofbiz-framework.git
 WORKDIR /root/ofbiz-framework
 RUN ./gradlew cleanAll loadAll --info
-RUN ./gradlew build
+RUN ./gradlew jar
 WORKDIR /root
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
 WORKDIR /root/immune-apps/framework
