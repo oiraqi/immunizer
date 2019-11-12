@@ -16,7 +16,7 @@ All dependencies are managed through Docker and Gradle. Docker is all what you n
 - OpenJDK 8
 - ByteBuddy 1.10.3
 - Gson 2.8.6
-- OFBiz
+- OFBiz (nightly built)
 
 **How To**
 - Make sure you have Docker installed
