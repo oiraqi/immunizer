@@ -26,6 +26,9 @@ RUN mkdir plugins
 RUN ./gradlew cleanAll loadDefault
 WORKDIR /root
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
+WORKDIR /root/immune-apps/framework
+RUN ./gradlew agentLibs
+WORKDIR /root
 
 # cleanup
 RUN apt-get -qy autoremove
