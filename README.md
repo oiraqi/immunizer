@@ -16,4 +16,4 @@ All dependencies are managed through Docker and Gradle. Docker is all what you n
 - docker build -t immune-apps:1.0 https://raw.githubusercontent.com/oiraqi/immune-apps/master/docker/Dockerfile
 - docker run --name immune-apps-container -p 8443:8443 -it immune-apps:1.0
 - cd immune-apps/scripts
-- ./ofbiz-immunizer-agent.jar
+- ./ofbiz-immunized.sh
