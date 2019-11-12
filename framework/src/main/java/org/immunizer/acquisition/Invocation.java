@@ -1,4 +1,4 @@
-package org.immunizer.core;
+package org.immunizer.acquisition;
 
 import com.google.common.hash.Hashing;
 

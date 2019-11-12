@@ -20,10 +20,10 @@ RUN apt-get install -qy vim
 RUN apt-get install -qy zip unzip
 RUN apt-get install -qy git
 WORKDIR /root
-RUN git clone --progress --verbose https://github.com/apache/ofbiz.git
-WORKDIR /root/ofbiz
-RUN mkdir plugins
-RUN ./gradlew cleanAll loadDefault
+RUN git clone --progress --verbose https://github.com/apache/ofbiz-framework.git
+WORKDIR /root/ofbiz-framework
+RUN ./gradlew cleanAll loadAll --info
+RUN ./gradlew build
 WORKDIR /root
 RUN git clone --progress --verbose https://github.com/oiraqi/immune-apps.git
 WORKDIR /root/immune-apps/framework

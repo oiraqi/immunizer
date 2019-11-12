@@ -1,6 +1,6 @@
-package org.immunizer.core.helpers;
+package org.immunizer.acquisition.helpers;
 
-import org.immunizer.core.Invocation;
+import org.immunizer.acquisition.Invocation;
 
 public class LazySerializationHelper {
 

@@ -1,4 +1,4 @@
-package org.immunizer.core.helpers;
+package org.immunizer.acquisition.helpers;
 
 import java.io.*;
 import java.sql.*;

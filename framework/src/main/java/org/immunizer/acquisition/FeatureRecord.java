@@ -1,4 +1,4 @@
-package org.immunizer.core;
+package org.immunizer.acquisition;
 
 import java.util.HashMap;
 import java.util.Iterator;
