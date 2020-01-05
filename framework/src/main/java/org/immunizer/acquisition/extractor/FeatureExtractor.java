@@ -1,4 +1,4 @@
-package org.immunizer.acquisition;
+package org.immunizer.acquisition.extractor;
 
 import java.util.Iterator;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import org.immunizer.acquisition.helpers.LazySerializationHelper;
+import org.immunizer.acquisition.Invocation;
 
 import com.google.gson.JsonElement;
 import com.google.gson.Gson;

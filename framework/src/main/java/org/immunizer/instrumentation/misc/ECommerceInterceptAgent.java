@@ -11,8 +11,8 @@ import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
 
-import org.immunizer.acquisition.FeatureExtractor;
-import org.immunizer.acquisition.FeatureRecord;
+import org.immunizer.acquisition.extractor.FeatureExtractor;
+import org.immunizer.acquisition.extractor.FeatureRecord;
 import org.immunizer.acquisition.Invocation;
 
 public class ECommerceInterceptAgent {

@@ -1,4 +1,4 @@
-package org.immunizer.acquisition.helpers;
+package org.immunizer.acquisition.extractor;
 
 import org.immunizer.acquisition.Invocation;
 

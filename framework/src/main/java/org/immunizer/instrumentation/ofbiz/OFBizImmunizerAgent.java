@@ -14,7 +14,7 @@ import java.util.Random;
 /*import org.immunizer.acquisition.FeatureExtractor;
 import org.immunizer.acquisition.FeatureRecord;*/
 import org.immunizer.acquisition.Invocation;
-import org.immunizer.acquisition.Sensor;
+import org.immunizer.acquisition.sensor.Sensor;
 
 public class OFBizImmunizerAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {

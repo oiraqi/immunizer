@@ -1,4 +1,6 @@
-package org.immunizer.acquisition;
+package org.immunizer.acquisition.sensor;
+
+import org.immunizer.acquisition.Invocation;
 
 public abstract class Sensor {
 
