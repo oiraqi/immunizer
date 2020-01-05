@@ -57,11 +57,12 @@ public class OFBizImmunizerAgent {
 				@Advice.AllArguments Object[] params) {
 
 			String userAgent = null;
+			String type = "Genuine";
 			try {
 				userAgent = (String) params[0].getClass().getMethod("getHeader", java.lang.String.class)
 						.invoke(params[0], "User-Agent");
 				if (userAgent == null || !userAgent.equals("JMeter")) {
-					userAgent = "ZAP"; /**
+					type = "Malicious"; /**
 										 * Label it as true positive, just for automatic evaluation of intrusion/oulier
 										 * detection results
 										 */
@@ -73,9 +74,9 @@ public class OFBizImmunizerAgent {
 			int index = currentThread.getName().indexOf("#");
 			if (index > 0) {
 				String threadBasicName = currentThread.getName().substring(0, index + 1);
-				currentThread.setName(threadBasicName + threadTag + ' ' + userAgent);
+				currentThread.setName(threadBasicName + threadTag + ' ' + type);
 			} else
-				currentThread.setName(currentThread.getName() + "#" + threadTag + ' ' + userAgent);
+				currentThread.setName(currentThread.getName() + "#" + threadTag + ' ' + type);
 
 			System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 			System.out.println(currentThread.getName());

@@ -1,8 +1,12 @@
 package org.immunizer.acquisition;
 
+import java.io.Serializable;
+
 import com.google.common.hash.Hashing;
 
-public class Invocation {
+public class Invocation implements Serializable {
+	
+	private static final long serialVersionUID = -1813462714228293813L;
 	private String version;
 	private String fullyQualifiedMethodName;
 	private StackTraceElement[] callStack;
