@@ -20,6 +20,12 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+  immune-apps:
+    image: 'immune-apps:1.0'
+    ports:
+      - '8443:8443'
+    depends_on:
+      - kafka
 
 volumes:
   zookeeper_data:
