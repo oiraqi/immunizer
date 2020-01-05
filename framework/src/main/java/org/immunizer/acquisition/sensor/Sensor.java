@@ -15,5 +15,5 @@ public abstract class Sensor {
         return singleton;
     }
 
-    public abstract void stream(Invocation invocation);
+    public abstract void send(Invocation invocation);
 }

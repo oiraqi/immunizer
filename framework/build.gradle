@@ -14,6 +14,7 @@ dependencies {
         implementation 'net.bytebuddy:byte-buddy:1.10.2'
         implementation 'com.google.code.gson:gson:2.8.6'
         implementation 'com.google.guava:guava:28.1-jre'
+        implementation 'org.apache.kafka:kafka-clients:2.4.0'
 }
 
 task agentLibs(type: Jar) {

@@ -144,7 +144,7 @@ public class OFBizImmunizerAgent {
 			else
 				invocation.update(null, false);
 			
-			sensorSingleton.stream(invocation);
+			sensorSingleton.send(invocation);
 			/*FeatureRecord featureRecord = featureExtractorSingleton.extract(invocation);
 			if (featureRecord != null)
 				featureExtractorSingleton.log(featureRecord);*/
