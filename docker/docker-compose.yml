@@ -1,4 +1,4 @@
-version: 'latest'
+version: '2'
 
 services:
   zookeeper:
