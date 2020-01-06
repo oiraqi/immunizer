@@ -3,21 +3,28 @@ package org.immunizer.acquisition.producer;
 import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.immunizer.acquisition.Invocation;
 
-public class KafkaSensor extends Sensor {
+public class Producer {
 
-    private Producer<String, Invocation> producer;
+    private static Producer singleton;
+    private KafkaProducer<String, Invocation> producer;
 
-    public KafkaSensor() {
+    private Producer() {
         Properties props = new Properties();
         props.put("bootstrap.servers", "kafka-container:9092");
         props.put("acks", "all");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer", "org.immunizer.acquisition.sensor.KafkaInvocationSerializer");
+        props.put("value.serializer", "org.immunizer.acquisition.producer.InvocationSerializer");
         producer = new KafkaProducer<String, Invocation>(props);
+    }
+
+    public static Producer getSingleton() {
+        if (singleton == null) {
+            singleton = new Producer();
+        }
+        return singleton;
     }
 
     public void send(Invocation invocation) {

@@ -12,7 +12,7 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
 
 import org.immunizer.acquisition.Invocation;
-import org.immunizer.acquisition.producer.Sensor;
+import org.immunizer.acquisition.producer.Producer;
 
 public class BenchmarkInterceptAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {
@@ -43,7 +43,7 @@ public class BenchmarkInterceptAgent {
 
 	public static class ControllerMethodAdvice {
 
-		public static Sensor sensorSingleton = Sensor.getSingleton();
+		public static Producer producer = Producer.getSingleton();
 
 		@Advice.OnMethodEnter
 		public static Invocation onEnter(@Advice.This Object object, @Advice.Origin String fullyQualifiedMethodName,
@@ -104,13 +104,13 @@ public class BenchmarkInterceptAgent {
 					invocation.update(result, false);
 			} else
 				invocation.update(null, false);
-			sensorSingleton.send(invocation);			
+			producer.send(invocation);			
 		}
 	}
 
 	public static class ModelViewMethodAdvice {
 
-		public static Sensor sensorSingleton = Sensor.getSingleton();
+		public static Producer producer = Producer.getSingleton();
 
 		@Advice.OnMethodEnter
 		public static Invocation onEnter(@Advice.Origin String fullyQualifiedMethodName,
@@ -144,7 +144,8 @@ public class BenchmarkInterceptAgent {
 				invocation.update(null, true);
 			else
 				invocation.update(null, false);
-			sensorSingleton.send(invocation);			
+			
+			producer.send(invocation);			
 		}
 	}
 }
