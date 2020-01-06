@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class FeatureRecord {
     private int callStackId;
-    private StackTraceElement[] callStack;
+    // private StackTraceElement[] callStack;
     private String threadTag;
     private long startTime;
     private long endTime;
@@ -18,11 +18,11 @@ public class FeatureRecord {
     protected FeatureRecord() {
     }
 
-    public FeatureRecord(int callStackId, StackTraceElement[] callStack, String threadTag, long startTime, long endTime,
+    public FeatureRecord(int callStackId, /*StackTraceElement[] callStack, */String threadTag, long startTime, long endTime,
             String fullyQualifiedMethodName, String version, HashMap<String, Double> record, String parameters,
             String result) {
         this.callStackId = callStackId;
-        this.callStack = callStack;
+        // this.callStack = callStack;
         this.threadTag = threadTag;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -37,9 +37,9 @@ public class FeatureRecord {
         return callStackId;
     }
 
-    public StackTraceElement[] getCallStack() {
+    /*public StackTraceElement[] getCallStack() {
         return callStack;
-    }
+    }*/
 
     public String getThreadTag() {
         return threadTag;

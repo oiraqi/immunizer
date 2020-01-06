@@ -21,9 +21,9 @@ public class BenchmarkFeatureRecord extends FeatureRecord{
         return featureRecord.getCallStackId();
     }
 
-    public StackTraceElement[] getCallStack(){
+    /*public StackTraceElement[] getCallStack(){
         return featureRecord.getCallStack();
-    }
+    }*/
 
     public String getThreadTag(){
         return featureRecord.getThreadTag();
@@ -60,11 +60,11 @@ public class BenchmarkFeatureRecord extends FeatureRecord{
      * @return the enhanced model path
      */
     public String getModel(){
-        StackTraceElement[] callStack = featureRecord.getCallStack();
+        /*StackTraceElement[] callStack = featureRecord.getCallStack();
         for(StackTraceElement ste : callStack)
             if(ste.getClassName().startsWith("org.owasp.benchmark.testcode."))
                 return ste.getClassName().substring(ste.getClassName().lastIndexOf('.') + 1) 
-                    + "/" + featureRecord.getModel();
+                    + "/" + featureRecord.getModel();*/
         
         return featureRecord.getModel();
     }

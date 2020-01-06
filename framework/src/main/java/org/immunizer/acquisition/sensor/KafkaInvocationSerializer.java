@@ -4,7 +4,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import com.google.gson.Gson;
 import org.immunizer.acquisition.Invocation;
 
-class KafkaInvocationSerializer implements Serializer<Invocation> {
+public class KafkaInvocationSerializer implements Serializer<Invocation> {
 
     private Gson gson = new Gson();
 
