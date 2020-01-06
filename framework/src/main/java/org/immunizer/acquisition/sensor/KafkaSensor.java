@@ -13,7 +13,7 @@ public class KafkaSensor extends Sensor {
 
     public KafkaSensor() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "kafka:9092");
+        props.put("bootstrap.servers", "kafka-container:9092");
         props.put("acks", "all");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.immunizer.acquisition.sensor.KafkaInvocationSerializer");

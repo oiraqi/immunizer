@@ -1,14 +1,20 @@
 version: '2'
 
+networks:
+  app-tier:
+    driver: bridge
+
 services:
   zookeeper:
-    image: 'zookeeper:latest'
+    image: 'bitnami/zookeeper:latest'
     ports:
       - '2181:2181'
     volumes:
       - 'zookeeper_data:/bitnami'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - app-tier
   kafka:
     image: 'bitnami/kafka:latest'
     ports:
@@ -20,12 +26,16 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+    networks:
+      - app-tier
   immune-apps:
     image: 'immune-apps:1.0'
     ports:
       - '8443:8443'
     depends_on:
       - kafka
+    networks:
+      - app-tier
 
 volumes:
   zookeeper_data:
