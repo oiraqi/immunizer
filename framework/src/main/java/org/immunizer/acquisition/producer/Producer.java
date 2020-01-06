@@ -28,6 +28,6 @@ public class Producer {
     }
 
     public void send(Invocation invocation) {
-        producer.send(new ProducerRecord<String, Invocation>("Test", invocation));
+        producer.send(new ProducerRecord<String, Invocation>("Test1", invocation));
     }
 }

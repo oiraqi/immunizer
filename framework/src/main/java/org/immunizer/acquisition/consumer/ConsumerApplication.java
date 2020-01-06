@@ -23,7 +23,7 @@ public class ConsumerApplication {
         props.setProperty("value.deserializer", "org.immunizer.acquisition.consumer.InvocationDeserializer");
 
         Consumer<String, Invocation> consumer = new KafkaConsumer<String, Invocation>(props);
-        Collection<String> topics = Collections.singletonList("Test");
+        Collection<String> topics = Collections.singletonList("Test1");
         consumer.subscribe(topics);
 
         while (true) {
