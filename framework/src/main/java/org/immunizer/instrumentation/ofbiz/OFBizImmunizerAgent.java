@@ -11,10 +11,8 @@ import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
 
-/*import org.immunizer.acquisition.FeatureExtractor;
-import org.immunizer.acquisition.FeatureRecord;*/
 import org.immunizer.acquisition.Invocation;
-import org.immunizer.acquisition.sensor.Sensor;
+import org.immunizer.acquisition.producer.Sensor;
 
 public class OFBizImmunizerAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {
@@ -94,7 +92,6 @@ public class OFBizImmunizerAgent {
 
 	public static class ModelMethodAdvice {
 
-		//public static FeatureExtractor featureExtractorSingleton = FeatureExtractor.getSingleton();
 		public static Sensor sensorSingleton = Sensor.getSingleton();
 
 		@Advice.OnMethodEnter

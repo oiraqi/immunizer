@@ -11,9 +11,8 @@ import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
 
-import org.immunizer.acquisition.extractor.FeatureExtractor;
-import org.immunizer.acquisition.extractor.FeatureRecord;
 import org.immunizer.acquisition.Invocation;
+import org.immunizer.acquisition.producer.Sensor;
 
 public class BenchmarkInterceptAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {
@@ -44,7 +43,7 @@ public class BenchmarkInterceptAgent {
 
 	public static class ControllerMethodAdvice {
 
-		public static FeatureExtractor featureExtractorSingleton = FeatureExtractor.getSingleton();
+		public static Sensor sensorSingleton = Sensor.getSingleton();
 
 		@Advice.OnMethodEnter
 		public static Invocation onEnter(@Advice.This Object object, @Advice.Origin String fullyQualifiedMethodName,
@@ -105,15 +104,13 @@ public class BenchmarkInterceptAgent {
 					invocation.update(result, false);
 			} else
 				invocation.update(null, false);
-			FeatureRecord featureRecord = featureExtractorSingleton.extract(invocation);
-			if (featureRecord != null)
-				featureExtractorSingleton.log(new BenchmarkFeatureRecord(featureRecord));
+			sensorSingleton.send(invocation);			
 		}
 	}
 
 	public static class ModelViewMethodAdvice {
 
-		public static FeatureExtractor featureExtractorSingleton = FeatureExtractor.getSingleton();
+		public static Sensor sensorSingleton = Sensor.getSingleton();
 
 		@Advice.OnMethodEnter
 		public static Invocation onEnter(@Advice.Origin String fullyQualifiedMethodName,
@@ -147,9 +144,7 @@ public class BenchmarkInterceptAgent {
 				invocation.update(null, true);
 			else
 				invocation.update(null, false);
-			FeatureRecord featureRecord = featureExtractorSingleton.extract(invocation);
-			if (featureRecord != null)
-				featureExtractorSingleton.log(new BenchmarkFeatureRecord(featureRecord));
+			sensorSingleton.send(invocation);			
 		}
 	}
 }

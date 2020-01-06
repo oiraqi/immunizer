@@ -1,4 +1,4 @@
-package org.immunizer.acquisition.sensor;
+package org.immunizer.acquisition.producer;
 
 import org.immunizer.acquisition.Invocation;
 

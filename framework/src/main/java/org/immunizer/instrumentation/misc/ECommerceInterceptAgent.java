@@ -11,9 +11,8 @@ import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
 
-import org.immunizer.acquisition.extractor.FeatureExtractor;
-import org.immunizer.acquisition.extractor.FeatureRecord;
 import org.immunizer.acquisition.Invocation;
+import org.immunizer.acquisition.producer.Sensor;
 
 public class ECommerceInterceptAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {
@@ -37,7 +36,8 @@ public class ECommerceInterceptAgent {
 
 	public static class MethodAdvice {
 
-		public static FeatureExtractor featureExtractorSingleton = FeatureExtractor.getSingleton();
+		//public static FeatureExtractor featureExtractorSingleton = FeatureExtractor.getSingleton();
+		public static Sensor sensorSingleton = Sensor.getSingleton();
 
 		@Advice.OnMethodEnter
 		public static Invocation onEnter(@Advice.This Object object, @Advice.Origin String fullyQualifiedMethodName,
@@ -66,9 +66,10 @@ public class ECommerceInterceptAgent {
 					invocation.update(result, false);
 			} else
 				invocation.update(null, false);
-			FeatureRecord featureRecord = featureExtractorSingleton.extract(invocation);
+			sensorSingleton.send(invocation);
+			/*FeatureRecord featureRecord = featureExtractorSingleton.extract(invocation);
 			if (featureRecord != null)
-				featureExtractorSingleton.log(featureRecord);
+				featureExtractorSingleton.log(featureRecord);*/
 		}
 	}
 }

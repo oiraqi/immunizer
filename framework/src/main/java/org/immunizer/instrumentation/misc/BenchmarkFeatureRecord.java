@@ -2,7 +2,7 @@ package org.immunizer.instrumentation.misc;
 
 import java.util.HashMap;
 
-import org.immunizer.acquisition.extractor.FeatureRecord;
+import org.immunizer.acquisition.consumer.FeatureRecord;
 
 /**
  * A FeatureRecord decorator/wrapper to organize models in

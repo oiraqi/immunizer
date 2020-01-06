@@ -1,4 +1,4 @@
-package org.immunizer.acquisition.sensor;
+package org.immunizer.acquisition.producer;
 
 import java.util.Properties;
 
@@ -22,6 +22,5 @@ public class KafkaSensor extends Sensor {
 
     public void send(Invocation invocation) {
         producer.send(new ProducerRecord<String, Invocation>("Test", invocation));
-        System.out.println("++++++++++ KAFKA " + invocation.getNumberOfParams() + " KAFKA ++++++++++");
     }
 }
