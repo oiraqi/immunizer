@@ -2,7 +2,6 @@ package org.immunizer.instrumentation;
 
 import org.apache.kafka.common.serialization.Serializer;
 import com.google.gson.Gson;
-import org.immunizer.acquisition.Invocation;
 
 public class InvocationSerializer implements Serializer<Invocation> {
 
