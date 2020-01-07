@@ -1,15 +1,16 @@
 This is the evolving Java implementation of Immunizer: The Collaborative Cloud-based Unsupervised Software Immunity Framework.
 
-Immunizer strives to empower software applications with artificial immunity against cyber attacks.
-To achieve this goal, Immunizer enables applications themselves to play a central and active role in the intrusion detection and response processes. While traditional network and host intrusion detection systems have access to raw strings and bytes through I/O operations only, Immunizer allows tracking application domain objects all along the processing lifecycle.
+Immunizer strives to empower software applications with *artificial immunity* against cyber attacks.
+To achieve this goal, Immunizer enables applications themselves to play a *central* and *active* role in the intrusion detection and response processes. While traditional network and host intrusion detection systems have access to raw strings and bytes through I/O operations only, Immunizer allows tracking application domain objects all along the processing lifecycle.
 
 Thanks to unsupervised learning, Immunizer leverages the application business context and learns from production data, without creating any training burden on the application owner. Moreover, as Immunizer uses runtime application instrumentation, it incurs no additional cost on the application provider.
 
-Immunizer leverages cloud-based collaboration to create and manage software communities whose members automatically share security alarams and learn from each other. This allows Immunizer to evolve from empowering applications with immunity like the human body, to providing them with a sense of belonging like in human societies.
+Immunizer leverages cloud-based collaboration to create and manage software communities whose members automatically share security alarms and learn from each other. This allows Immunizer to evolve from empowering applications with immunity like the *human body*, to providing them with a sense of belonging like in *human societies*.
 
 In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-based microservices architecture provides high performance and scalability.
 
 **Architecture**
+
 Immunizer is made of several modules/layers, each designed and implemented as a microservice for maximum decoupling. These are:
 - Instrumentation microservice
 - Acquisition microservice
@@ -17,6 +18,7 @@ Immunizer is made of several modules/layers, each designed and implemented as a 
 - Collaboration microservice
 
 **Structure**
+
 This is Immunizer overarching repository, with a sub-repository for each microservice:
 - https://github.com/oiraqi/immunizer-instrumentation
 - https://github.com/oiraqi/immunizer-acquisition
