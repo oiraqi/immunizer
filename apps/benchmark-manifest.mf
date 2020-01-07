@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Premain-Class: BenchmarkInterceptAgent
-Boot-Class-Path: .:../../../../../../framework/
-Created-By: 10 (Oracle Corporation)
