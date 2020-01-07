@@ -1,4 +1,4 @@
-package org.immunizer.acquisition.producer;
+package org.immunizer.instrumentation;
 
 import org.apache.kafka.common.serialization.Serializer;
 import com.google.gson.Gson;

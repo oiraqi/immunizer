@@ -1,17 +1,17 @@
-package org.immunizer.acquisition.producer;
+package org.immunizer.instrumentation;
 
 import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.immunizer.acquisition.Invocation;
+import org.immunizer.instrumentation.Invocation;
 
-public class Producer {
+public class InvocationProducer {
 
-    private static Producer singleton;
+    private static InvocationProducer singleton;
     private KafkaProducer<String, Invocation> producer;
 
-    private Producer() {
+    private InvocationProducer() {
         Properties props = new Properties();
         props.put("bootstrap.servers", "kafka-container:9092");
         props.put("acks", "all");
@@ -20,14 +20,14 @@ public class Producer {
         producer = new KafkaProducer<String, Invocation>(props);
     }
 
-    public static Producer getSingleton() {
+    public static InvocationProducer getSingleton() {
         if (singleton == null) {
-            singleton = new Producer();
+            singleton = new InvocationProducer();
         }
         return singleton;
     }
 
     public void send(Invocation invocation) {
-        producer.send(new ProducerRecord<String, Invocation>("Test1", invocation));
+        producer.send(new ProducerRecord<String, Invocation>("Test", invocation));
     }
 }

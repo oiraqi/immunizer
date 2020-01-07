@@ -11,8 +11,8 @@ import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import java.util.Random;
 
-import org.immunizer.acquisition.Invocation;
-import org.immunizer.acquisition.producer.Producer;
+import org.immunizer.instrumentation.Invocation;
+import org.immunizer.instrumentation.InvocationProducer;
 
 public class OFBizImmunizerAgent {
 	public static void premain(String arg, Instrumentation inst) throws Exception {
@@ -92,7 +92,7 @@ public class OFBizImmunizerAgent {
 
 	public static class ModelMethodAdvice {
 
-		public static Producer producer = Producer.getSingleton();
+		public static InvocationProducer producer = InvocationProducer.getSingleton();
 
 		@Advice.OnMethodEnter
 		public static Invocation onEnter(@Advice.Origin String fullyQualifiedMethodName,

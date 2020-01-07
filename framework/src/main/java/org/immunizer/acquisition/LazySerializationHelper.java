@@ -1,4 +1,4 @@
-package org.immunizer.acquisition.consumer;
+package org.immunizer.acquisition;
 
 import org.immunizer.acquisition.Invocation;
 

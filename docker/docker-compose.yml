@@ -1,44 +1,15 @@
 version: '2'
-
-networks:
-  app-tier:
-    driver: bridge
-
 services:
   zookeeper:
-    image: 'bitnami/zookeeper:latest'
+    image: wurstmeister/zookeeper
     ports:
-      - '2181:2181'
-    volumes:
-      - 'zookeeper_data:/bitnami'
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
-    networks:
-      - app-tier
+      - "2181:2181"
   kafka:
-    image: 'bitnami/kafka:latest'
+    build: .
     ports:
-      - '9092:9092'
-    volumes:
-      - 'kafka_data:/bitnami'
+      - "9092:9092"
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper
-    networks:
-      - app-tier
-  immune-apps:
-    image: 'immune-apps:1.0'
-    ports:
-      - '8443:8443'
-    depends_on:
-      - kafka
-    networks:
-      - app-tier
-
-volumes:
-  zookeeper_data:
-    driver: local
-  kafka_data:
-    driver: local
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "Test:1:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
