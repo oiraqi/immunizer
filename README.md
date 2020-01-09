@@ -1,4 +1,4 @@
-This is the evolving Java implementation of Immunizer: The Collaborative Cloud-based Unsupervised Software Immunity Framework.
+# Immunizer: The Collaborative Cloud-based Unsupervised Software Immunity Framework.
 
 Immunizer strives to empower software applications with *artificial immunity* against cyber attacks.
 To achieve this goal, Immunizer enables applications themselves to play a *central* and *active* role in the intrusion detection and response processes. While traditional network and host intrusion detection systems have access to raw strings and bytes through I/O operations only, Immunizer allows tracking application domain objects all along the processing lifecycle.
@@ -9,7 +9,7 @@ Immunizer leverages cloud-based collaboration to create and manage software comm
 
 In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-based microservices architecture provides high performance and scalability.
 
-**Architecture**
+## Architecture
 
 Immunizer is made of several modules/layers, each designed and implemented as a microservice for maximum decoupling. These are:
 - Instrumentation microservice
@@ -17,7 +17,7 @@ Immunizer is made of several modules/layers, each designed and implemented as a 
 - Analysis microservice
 - Collaboration microservice
 
-**Structure**
+## Structure
 
 This is Immunizer overarching repository, with a sub-repository for each microservice:
 - https://github.com/oiraqi/immunizer-instrumentation
@@ -25,6 +25,6 @@ This is Immunizer overarching repository, with a sub-repository for each microse
 - https://github.com/oiraqi/immunizer-analysis
 - https://github.com/oiraqi/immunizer-collaboration
 
-**Articles & Papers**
+## Articles & Papers
 - Omar Iraqi and Hanan El Bakkali, “Application-Level Unsupervised Outlier-Based Intrusion Detection and Prevention,” Security and Communication Networks, vol. 2019, Article ID 8368473, 13 pages, 2019. https://doi.org/10.1155/2019/8368473
 - Omar Iraqi, Meryeme Ayach and Hanan El Bakali, "Collaborative Cloud-based Application-level Intrusion Detection and Prevention", ICWMC 2019 : The Fifteenth International Conference on Wireless and Mobile Communications, IARIA.
