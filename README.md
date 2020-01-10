@@ -12,18 +12,10 @@ In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-ba
 ## Architecture
 
 Immunizer is made of several modules/layers, each designed and implemented as a microservice for maximum decoupling. These are:
-- Instrumentation microservice
-- Acquisition microservice
-- Analysis microservice
-- Collaboration microservice
-
-## Structure
-
-This is Immunizer overarching repository, with a sub-repository for each microservice:
-- https://github.com/oiraqi/immunizer-instrumentation
-- https://github.com/oiraqi/immunizer-acquisition
-- https://github.com/oiraqi/immunizer-analysis
-- https://github.com/oiraqi/immunizer-collaboration
+- [Instrumentation microservice](https://github.com/oiraqi/immunizer-instrumentation)
+- [Acquisition microservice](https://github.com/oiraqi/immunizer-acquisition)
+- [Analysis microservice](https://github.com/oiraqi/immunizer-analysis)
+- [Collaboration microservice](https://github.com/oiraqi/immunizer-collaboration)
 
 ## Articles & Papers
 - Omar Iraqi and Hanan El Bakkali, “Application-Level Unsupervised Outlier-Based Intrusion Detection and Prevention,” Security and Communication Networks, vol. 2019, Article ID 8368473, 13 pages, 2019. https://doi.org/10.1155/2019/8368473
