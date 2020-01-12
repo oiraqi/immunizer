@@ -17,7 +17,7 @@ Immunizer is made of several modules/layers, each designed and implemented as an
 - [Analysis Microservice](https://github.com/oiraqi/immunizer-analysis)
 - [Collaboration Microservice](https://github.com/oiraqi/immunizer-collaboration)
 
-Communication among the different modules/layers is based on streams and is performed asynchronously, through brokers.
+Communication among these modules/layers is based on streams and is performed asynchronously, through brokers.
 
 ## Articles & Papers
 - Omar Iraqi and Hanan El Bakkali, “Application-Level Unsupervised Outlier-Based Intrusion Detection and Prevention,” Security and Communication Networks, vol. 2019, Article ID 8368473, 13 pages, 2019. https://doi.org/10.1155/2019/8368473
