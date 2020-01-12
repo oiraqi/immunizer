@@ -5,13 +5,13 @@ To achieve this goal, Immunizer enables applications themselves to play a *centr
 
 Thanks to unsupervised learning, Immunizer leverages the application business context and learns from production data, without creating any training burden on the application owner. Moreover, as Immunizer uses runtime application instrumentation, it incurs no additional cost on the application provider.
 
-Immunizer leverages cloud-based collaboration to create and manage software communities whose members automatically share security alarms and learn from each other. This allows Immunizer to evolve from empowering applications with immunity like the *human body*, to providing them with a sense of belonging like in *human societies*.
+Immunizer leverages cloud-based collaboration to create and manage software communities whose members automatically share security alarms and learn from each other. This allows Immunizer to evolve from empowering applications with immunity like the *human body*, to providing them with a sense of belonging and an ability to collaborate like in *human societies*.
 
 In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-based, fully-distributed and parallelized microservices architecture provides high performance and scalability.
 
 ## Architecture
 
-Immunizer is made of several modules/layers, each designed and implemented as an in-app microagent or as an on-premise or cloud microservice. These are:
+Immunizer is made of several modules/layers, each designed and implemented as either an in-app microagent, an on-premise microservice, or a cloud microservice. These are:
 - [Monitoring Microagent](https://github.com/oiraqi/immunizer-monitoring)
 - [Acquisition Microservice](https://github.com/oiraqi/immunizer-acquisition)
 - [Analysis Microservice](https://github.com/oiraqi/immunizer-analysis)
