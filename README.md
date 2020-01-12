@@ -16,6 +16,7 @@ Immunizer is made of several modules/layers, each designed and implemented as an
 - [Acquisition Microservice](https://github.com/oiraqi/immunizer-acquisition)
 - [Analysis Microservice](https://github.com/oiraqi/immunizer-analysis)
 - [Collaboration Microservice](https://github.com/oiraqi/immunizer-collaboration)
+
 Communication among the different modules/layers is based on streams and is performed asynchronously, through brokers.
 
 ## Articles & Papers
