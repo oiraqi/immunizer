@@ -7,15 +7,16 @@ Thanks to unsupervised learning, Immunizer leverages the application business co
 
 Immunizer leverages cloud-based collaboration to create and manage software communities whose members automatically share security alarms and learn from each other. This allows Immunizer to evolve from empowering applications with immunity like the *human body*, to providing them with a sense of belonging like in *human societies*.
 
-In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-based microservices architecture provides high performance and scalability.
+In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-based, fully-distributed and parallelized microservices architecture provides high performance and scalability.
 
 ## Architecture
 
-Immunizer is made of several modules/layers, each designed and implemented as a microservice for maximum decoupling. These are:
-- [Instrumentation microservice](https://github.com/oiraqi/immunizer-instrumentation)
-- [Acquisition microservice](https://github.com/oiraqi/immunizer-acquisition)
-- [Analysis microservice](https://github.com/oiraqi/immunizer-analysis)
-- [Collaboration microservice](https://github.com/oiraqi/immunizer-collaboration)
+Immunizer is made of several modules/layers, each designed and implemented as an in-app microagent or as an on-premise or cloud microservice. These are:
+- [Instrumentation Microagent](https://github.com/oiraqi/immunizer-instrumentation)
+- [Acquisition Microservice](https://github.com/oiraqi/immunizer-acquisition)
+- [Analysis Microservice](https://github.com/oiraqi/immunizer-analysis)
+- [Collaboration Microservice](https://github.com/oiraqi/immunizer-collaboration)
+Communication among the different modules/layers is based on streams and is performed asynchronously, through brokers.
 
 ## Articles & Papers
 - Omar Iraqi and Hanan El Bakkali, “Application-Level Unsupervised Outlier-Based Intrusion Detection and Prevention,” Security and Communication Networks, vol. 2019, Article ID 8368473, 13 pages, 2019. https://doi.org/10.1155/2019/8368473
