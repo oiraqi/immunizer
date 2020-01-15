@@ -1,21 +1,21 @@
-version: '2'
+version: '3.7'
 
 services:
   zookeeper:
     image: bitnami/zookeeper
     ports:
-      - '2181:2181'
+      - 2181:2181
     volumes:
-      - 'zookeeper_data:/cluster'
+      - zookeeper_data:/cluster
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
   kafka:
-    image: 'bitnami/kafka'
+    image: bitnami/kafka
     ports:
-      - '9092:9092'
-      - '29092:29092'
+      - 9092:9092
+      - 29092:29092
     volumes:
-      - 'kafka_data:/cluster'
+      - kafka_data:/cluster
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
@@ -24,6 +24,22 @@ services:
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
     depends_on: 
       - zookeeper
+  ignite:
+    image: apacheignite/ignite
+    environment:
+      - IGNITE_QUIET=false
+    ports:
+      - 11211:11211
+      - 47100:47100
+      - 47500:47500
+      - 49112:49112
+  immunizer:
+    build: https://raw.githubusercontent.com/oiraqi/immunizer-monitoring/master/docker/Dockerfile
+    ports:
+      - 8443:8443
+    tty: true
+    depends_on:
+      - kafka
 
 volumes:
   zookeeper_data:
