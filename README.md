@@ -13,10 +13,11 @@ In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-ba
 
 Immunizer is made of several modules/layers, each designed and implemented as either an in-app microagent, an on-premise microservice, or a cloud microservice. These are:
 - [Monitoring Microagent](https://github.com/oiraqi/immunizer-monitoring)
+- [Response Microagent](https://github.com/oiraqi/immunizer-response)
 - [Acquisition Microservice](https://github.com/oiraqi/immunizer-acquisition)
 - [Analysis Microservice](https://github.com/oiraqi/immunizer-analysis)
 - [Collaboration Microservice](https://github.com/oiraqi/immunizer-collaboration)
-- [Response Microagent](https://github.com/oiraqi/immunizer-response)
+- [Dashboard Microservice](https://github.com/oiraqi/immunizer-dashboard)
 
 Communication among these modules/layers is based on streams and is performed asynchronously, through brokers.
 
