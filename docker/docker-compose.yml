@@ -3,6 +3,7 @@ version: '3.7'
 services:
   zookeeper:
     image: bitnami/zookeeper
+    container_name: zookeeper
     ports:
       - 2181:2181
     volumes:
@@ -11,6 +12,7 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
   kafka:
     image: bitnami/kafka
+    container_name: kafka
     ports:
       - 9092:9092
       - 29092:29092
@@ -44,6 +46,7 @@ services:
       - "SPARK_MASTER=spark://microservices-spark-master:7077"
   ignite:
     image: apacheignite/ignite
+    container_name: ignite
     environment:
       - IGNITE_QUIET=false
     ports:
