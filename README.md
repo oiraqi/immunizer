@@ -18,6 +18,8 @@ Immunizer is made of several modules/layers, each designed and implemented as ei
 - Microservices:
   - [Monitoring Microservice](https://github.com/oiraqi/immunizer-monitor)
   - [Analysis Microservice](https://github.com/oiraqi/immunizer-analyze)
+  - [Planning Microservice](https://github.com/oiraqi/immunizer-plan)
+  - [Execution Microservice](https://github.com/oiraqi/immunizer-execute)
   - [Collaboration Microservice](https://github.com/oiraqi/immunizer-collaborate)
   - [Dashboard Microservice](https://github.com/oiraqi/immunizer-dashboard)
 
