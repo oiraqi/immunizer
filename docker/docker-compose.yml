@@ -55,7 +55,7 @@ services:
       - 47500:47500
       - 49112:49112
   immunizer-agents:
-    build: https://raw.githubusercontent.com/oiraqi/immunizer-sensor/master/docker/Dockerfile
+    build: https://raw.githubusercontent.com/oiraqi/immunizer/master/docker/Microservices-Spark-Dockerfile
     container_name: immunizer-microagents
     ports:
       - 8443:8443
