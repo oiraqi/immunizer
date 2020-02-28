@@ -31,8 +31,8 @@ services:
     container_name: microservices-spark
     tty: true
     ports:
-      - "8080:8080"
-      - "7077:7077"
+      - 8080:8080
+      - 7077:7077
     depends_on:
       - kafka
   spark-worker-1:
@@ -41,7 +41,7 @@ services:
     depends_on:
       - microservices-spark
     ports:
-      - "8081:8081"
+      - 8081:8081
     environment:
       - "SPARK_MASTER=spark://microservices-spark:7077"
   ignite:
