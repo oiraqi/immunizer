@@ -26,9 +26,9 @@ services:
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
     depends_on: 
       - zookeeper
-  microservices-spark-master:
-    build: https://raw.githubusercontent.com/oiraqi/immunizer-monitor/master/docker/Dockerfile 
-    container_name: microservices-spark-master
+  microservices-spark:
+    build: https://raw.githubusercontent.com/oiraqi/immunizer/master/docker/Microservices-Spark-Dockerfile
+    container_name: microservices-spark
     tty: true
     ports:
       - "8080:8080"
@@ -39,11 +39,11 @@ services:
     image: bde2020/spark-worker:2.4.5-hadoop2.7
     container_name: spark-worker-1
     depends_on:
-      - microservices-spark-master
+      - microservices-spark
     ports:
       - "8081:8081"
     environment:
-      - "SPARK_MASTER=spark://microservices-spark-master:7077"
+      - "SPARK_MASTER=spark://microservices-spark:7077"
   ignite:
     image: apacheignite/ignite
     container_name: ignite
@@ -55,7 +55,7 @@ services:
       - 47500:47500
       - 49112:49112
   immunizer-agents:
-    build: https://raw.githubusercontent.com/oiraqi/immunizer/master/docker/Microservices-Spark-Dockerfile
+    build: https://raw.githubusercontent.com/oiraqi/immunizer-sensor/master/docker/Dockerfile
     container_name: immunizer-microagents
     ports:
       - 8443:8443
