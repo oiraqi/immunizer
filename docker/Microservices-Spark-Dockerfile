@@ -19,7 +19,7 @@ RUN apt-get install -qy locales
 RUN apt-get install -qy vim
 RUN apt-get install -qy zip unzip
 RUN apt-get install -qy git
-RUN apt-get install curl
+RUN apt-get install -qy curl
 WORKDIR /root
 RUN curl -O https://downloads.apache.org/spark/spark-2.4.5/spark-2.4.5-bin-hadoop2.7.tgz
 RUN tar -xvzf spark-2.4.5-bin-hadoop2.7.tgz
