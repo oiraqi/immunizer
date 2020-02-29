@@ -29,7 +29,7 @@ services:
   spark-master:
     image: bde2020/spark-master:2.4.5-hadoop2.7
     container_name: spark-master
-    volume:
+    volumes:
       - spark-jobs:/data
     ports:
       - "8080:8080"
@@ -61,7 +61,7 @@ services:
     tty: true
     depends_on:
       - kafka
-    volume:
+    volumes:
       - spark-jobs:/root/data
   immunizer-agents:
     build: https://raw.githubusercontent.com/oiraqi/immunizer-sensor/master/docker/Dockerfile
