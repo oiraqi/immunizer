@@ -56,13 +56,13 @@ services:
       - 47500:47500
       - 49112:49112
   immunizer-microservices:
-    build: https://raw.githubusercontent.com/oiraqi/immunizer/master/docker/Microservices-Spark-Dockerfile
+    build: https://raw.githubusercontent.com/oiraqi/immunizer/master/docker/Microservices-Dockerfile
     container_name: immunizer-microservices
     tty: true
     depends_on:
       - kafka
     volume:
-      - spark-jobs:/root/immunizer-microservices/framework/build/libs
+      - spark-jobs:/root/data
   immunizer-agents:
     build: https://raw.githubusercontent.com/oiraqi/immunizer-sensor/master/docker/Dockerfile
     container_name: immunizer-microagents
