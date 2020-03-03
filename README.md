@@ -32,7 +32,7 @@ Communication among these modules/layers is based on streams and is performed as
 - docker-compose up --build
 - Login to the different containers
   - docker exec -it immunizer-microagents bash
-    - cd immunizer-microagents/scripts
+    - cd immunizer-sensor/scripts
     - ./ofbiz-immunized.sh
   - docker exec -it immunizer-microservices bash
     - cd /root/immunizer-monitor/scripts
