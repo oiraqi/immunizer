@@ -1,4 +1,4 @@
-version: '3.7'
+version: '2.0'
 
 services:
   zookeeper:
@@ -32,8 +32,8 @@ services:
     volumes:
       - spark-jobs:/data
     ports:
-      - "8080:8080"
-      - "7077:7077"
+      - 8080:8080
+      - 7077:7077
     environment:
       - INIT_DAEMON_STEP=setup_spark  
   spark-worker-1:
@@ -41,6 +41,8 @@ services:
     container_name: spark-worker-1
     depends_on:
       - spark-master    
+    volumes:
+      - spark-jobs:/data
     ports:
       - 8081:8081
     environment:
