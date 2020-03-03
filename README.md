@@ -25,6 +25,21 @@ Immunizer is made of several modules/layers, each designed and implemented as ei
 
 Communication among these modules/layers is based on streams and is performed asynchronously, through brokers.
 
+## How To
+- Make sure you have Git, Docker and Docker Compose installed
+- git clone https://github.com/oiraqi/immunizer.git
+- cd immunizer/docker
+- docker-compose up --build
+- Login to the different containers
+  - docker exec -it immunizer-microagents bash
+    - cd immunizer-microagents/scripts
+    - ./ofbiz-immunized.sh
+  - docker exec -it immunizer-microservices bash
+    - cd /root/immunizer-monitor/scripts
+    - ./build-spark-submit
+    - cd /root/immunizer-analyze/scripts
+    - ./build-spark-submit
+
 ## Articles & Papers
 - Omar Iraqi and Hanan El Bakkali, “Application-Level Unsupervised Outlier-Based Intrusion Detection and Prevention,” Security and Communication Networks, vol. 2019, Article ID 8368473, 13 pages, 2019. https://doi.org/10.1155/2019/8368473
 - Omar Iraqi, Meryeme Ayach and Hanan El Bakali, "Collaborative Cloud-based Application-level Intrusion Detection and Prevention", ICWMC 2019 : The Fifteenth International Conference on Wireless and Mobile Communications, IARIA.
