@@ -31,6 +31,7 @@ services:
     container_name: spark-master
     volumes:
       - spark-jobs:/data
+      - ../../microservices/monitoring/framework/build/libs:/libs
     ports:
       - 8080:8080
       - 7077:7077
@@ -40,15 +41,16 @@ services:
     image: bde2020/spark-worker:2.4.5-hadoop2.7
     container_name: spark-worker-1
     depends_on:
-      - spark-master    
+      - spark-master
     volumes:
       - spark-jobs:/data
+      - ../../microservices/monitoring/framework/build/libs:/libs
     ports:
       - 8081:8081
     environment:
       - "SPARK_MASTER=spark://spark-master:7077"
   ignite:
-    image: apacheignite/ignite
+    image: apacheignite/ignite:2.8.0
     container_name: ignite
     environment:
       - IGNITE_QUIET=false
@@ -63,6 +65,8 @@ services:
     tty: true
     depends_on:
       - kafka
+      - spark-master
+      - ignite
     volumes:
       - spark-jobs:/root/data
   immunizer-agents:
