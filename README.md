@@ -1,4 +1,4 @@
-# Immunizer: The Collaborative Cloud-based Unsupervised Software Immunity Framework
+# Immunizer: A Scalable Loosely-Coupled Self-Protecting Software Framework using Adaptive Microagents and Parallelized Microservices
 
 Immunizer strives to empower software applications with *artificial immunity* against cyber attacks.
 To achieve this goal, Immunizer enables applications themselves to play a *central* and *active* role in the intrusion detection and response processes. While traditional network and host intrusion detection systems have access to raw strings and bytes through I/O operations only, Immunizer allows tracking application domain objects all along the processing lifecycle.
