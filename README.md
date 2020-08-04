@@ -5,9 +5,9 @@ To achieve this goal, Immunizer enables applications themselves to play a *centr
 
 Thanks to unsupervised learning, Immunizer leverages the application business context and learns from production data, without creating any training burden on the application owner. Moreover, as Immunizer uses runtime application instrumentation, it incurs no additional cost on the application provider.
 
-Immunizer leverages cloud-based collaboration to create and manage software communities whose members automatically share security alarms and learn from each other. This allows Immunizer to evolve from empowering applications with immunity like the *human body*, to providing them with a sense of belonging and an ability to collaborate like in *human societies*.
-
 In terms of effectiveness, Immunizer R-precision exceeds 97%, while its cloud-based, fully-distributed and parallelized microservices architecture provides high performance and scalability.
+
+Immunizer can be extended through cloud-based collaboration. The aim is to create and manage *software communities* whose members automatically share security alarms and learn from each other. This allows Immunizer to evolve from empowering applications with immunity like the *human body*, to providing them with a sense of belonging and an ability to collaborate like in *human societies*. All related details are given in the corresponding project: [Communizer: A Collaborative Cloud-based Self-Protecting Software Communities Framework](https://github.com/oiraqi/communizer).
 
 ## Architecture
 
@@ -20,7 +20,6 @@ Immunizer is made of several modules/layers, each designed and implemented as ei
   - [Analysis Microservice](https://github.com/oiraqi/immunizer-analyze)
   - [Planning Microservice](https://github.com/oiraqi/immunizer-plan)
   - [Execution Microservice](https://github.com/oiraqi/immunizer-execute)
-  - [Collaboration Microservice](https://github.com/oiraqi/immunizer-collaborate)
   - [Dashboard Microservice](https://github.com/oiraqi/immunizer-dashboard)
 
 Communication among these modules/layers is based on streams and is performed asynchronously, through brokers.
