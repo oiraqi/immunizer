@@ -24,6 +24,10 @@ Immunizer is made of several modules/layers, each designed and implemented as ei
 
 Communication among these modules/layers is based on streams and is performed asynchronously, through brokers.
 
+<p align="center">
+  <img src="architecture/immunizer.png">
+</p>
+
 ## How To
 - Make sure you have Git, Docker and Docker Compose installed
 - git clone https://github.com/oiraqi/immunizer.git
