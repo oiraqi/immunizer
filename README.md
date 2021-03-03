@@ -16,10 +16,10 @@ Immunizer is made of several modules/layers, each designed and implemented as ei
   - [Sensor Microagent](https://github.com/oiraqi/immunizer-sensor)
   - [Effector Microagent](https://github.com/oiraqi/immunizer-effector)
 - Microservices:
-  - [Monitoring Microservice](https://github.com/oiraqi/immunizer-monitor)
-  - [Analysis Microservice](https://github.com/oiraqi/immunizer-analyze)
-  - [Planning Microservice](https://github.com/oiraqi/immunizer-plan)
-  - [Execution Microservice](https://github.com/oiraqi/immunizer-execute)
+  - [Monitor Microservice](https://github.com/oiraqi/immunizer-monitor)
+  - [Analyzer Microservice](https://github.com/oiraqi/immunizer-analyze)
+  - [Planner Microservice](https://github.com/oiraqi/immunizer-plan)
+  - [Executor Microservice](https://github.com/oiraqi/immunizer-execute)
   - [Dashboard Microservice](https://github.com/oiraqi/immunizer-dashboard)
 
 Communication among these modules/layers is based on streams and is performed asynchronously, through brokers.
