@@ -14,9 +14,9 @@ import java.util.Collections;
 import java.util.Properties;
 import java.time.Duration;
 import java.util.regex.Pattern;
-import java.util.Vector;
 import java.util.List;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import scala.Tuple2;
 
@@ -37,7 +37,7 @@ public class FeatureRecordConsumer {
         props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.setProperty("value.deserializer", "org.immunizer.microservices.analyzer.FeatureRecordDeserializer");
 
-        consumer = new KafkaConsumer<String, FeatureRecord>(props);
+        consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Pattern.compile(TOPIC_PATTERN));
         this.cache = cache;
         this.sc = sc;
@@ -45,7 +45,7 @@ public class FeatureRecordConsumer {
 
     public Iterator<String> pollAndGetContexts(int timeout, int minBatchSize, int maxBatchSize) {
         ConsumerRecords<String, FeatureRecord> records = consumer.poll(Duration.ofSeconds(timeout));
-        Vector<String> contexts = new Vector<String>();
+        LinkedList<String> contexts = new LinkedList<>();
 
         for (TopicPartition partition : records.partitions()) {
             List<ConsumerRecord<String, FeatureRecord>> partitionRecords = records.records(partition);

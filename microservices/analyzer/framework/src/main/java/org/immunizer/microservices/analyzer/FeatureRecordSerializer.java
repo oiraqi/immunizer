@@ -8,9 +8,7 @@ public class FeatureRecordSerializer implements Serializer<FeatureRecord>, Seria
 
     private static final long serialVersionUID = 1274353L;
 
-    private Gson gson = new Gson();
-
-    public FeatureRecordSerializer() {}
+    private transient Gson gson = new Gson();
     
     @Override
     public byte[] serialize(String topic, FeatureRecord featureRecord) {

@@ -25,7 +25,7 @@ public class DistributedCache {
     public DistributedCache(SparkSession sparkSession) {
         this.sparkSession = sparkSession;
         sc = new JavaSparkContext(sparkSession.sparkContext());
-        igniteContext = new JavaIgniteContext<Long, FeatureRecord>(sc, "immunizer/ignite-cfg.xml");
+        igniteContext = new JavaIgniteContext<>(sc, "immunizer/ignite-cfg.xml");
         structType = new StructType();
         structType.add("id", DataTypes.LongType);
         structType.add("features", new VectorUDT());

@@ -1,7 +1,6 @@
 package org.immunizer.microservices.analyzer;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Map;
 import java.io.Serializable;
 
 public class FeatureRecord implements Serializable {
@@ -9,24 +8,22 @@ public class FeatureRecord implements Serializable {
     private static final long serialVersionUID = 1354353L;
 
     private String callStackId;
-    // private StackTraceElement[] callStack;
     private String threadTag;
     private long startTime;
     private long endTime;
     private String swid;
     private String fullyQualifiedMethodName;
-    private HashMap<String, Double> record;
+    private Map<String, Double> record;
     private String parameters;
     private String result;
 
     protected FeatureRecord() {
     }
 
-    public FeatureRecord(String callStackId, /*StackTraceElement[] callStack, */String threadTag, long startTime, long endTime,
-            String fullyQualifiedMethodName, String swid, HashMap<String, Double> record, String parameters,
+    public FeatureRecord(String callStackId, String threadTag, long startTime, long endTime,
+            String fullyQualifiedMethodName, String swid, Map<String, Double> record, String parameters,
             String result) {
         this.callStackId = callStackId;
-        // this.callStack = callStack;
         this.threadTag = threadTag;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -41,10 +38,6 @@ public class FeatureRecord implements Serializable {
         return callStackId;
     }
 
-    /*public StackTraceElement[] getCallStack() {
-        return callStack;
-    }*/
-
     public String getThreadTag() {
         return threadTag;
     }
@@ -57,25 +50,8 @@ public class FeatureRecord implements Serializable {
         return swid;
     }
 
-    public HashMap<String, Double> getRecord() {
+    public Map<String, Double> getRecord() {
         return record;
-    }
-
-    public String getModel() {
-        String method = fullyQualifiedMethodName
-                .substring(0, fullyQualifiedMethodName.indexOf(')') + 1).trim();
-        
-        method = method.replace(' ', '_');
-        return method + '_' + callStackId;
-    }
-
-    public String getValues() {
-        Iterator<Double> values = record.values().iterator();
-        StringBuffer buffer = new StringBuffer();
-        while (values.hasNext())
-            buffer.append(values.next() + " ");
-        buffer.append("Thread_" + threadTag);
-        return buffer.toString();
     }
 
     public long getStartTime() {

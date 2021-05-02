@@ -1,22 +1,15 @@
 package org.immunizer.microservices.analyzer;
 
-import org.apache.spark.SparkConf;
-import org.apache.spark.SparkContext;
-import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.Dataset;
-import static org.apache.spark.sql.functions.*;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaPairRDD;
+import static org.apache.spark.sql.functions.desc;
 
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
-import scala.Tuple2;
-
+import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.ml.outlier.LOF;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
 public class Analyzer {
 
@@ -50,6 +43,8 @@ public class Analyzer {
                         long key = (Long)outlier.get(0);
                         FeatureRecord fr = cache.get(context, key);
                         outlierProducer.send(fr);
+                        
+                        // Get rid of these outliers for the next cycle
                         cache.delete(context, key);
                     });
                 }
