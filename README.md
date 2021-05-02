@@ -14,13 +14,13 @@ Immunizer can be extended through cloud-based collaboration. The aim is to creat
 Immunizer is made of several modules/layers, each designed and implemented as either an in-app microagent, an on-premise microservice, or a cloud microservice. These are:
 - Microagents:
   - [Sensor Microagent](https://github.com/oiraqi/immunizer/tree/master/microagents/sensor)
-  - [Effector Microagent](https://github.com/oiraqi/immunizer-effector)
+  - [Effector Microagent](https://github.com/oiraqi/immunizer/tree/master/microagents/effector)
 - Microservices:
-  - [Monitor Microservice](https://github.com/oiraqi/immunizer-monitor)
-  - [Analyzer Microservice](https://github.com/oiraqi/immunizer-analyze)
-  - [Planner Microservice](https://github.com/oiraqi/immunizer-plan)
-  - [Executor Microservice](https://github.com/oiraqi/immunizer-execute)
-  - [Dashboard Microservice](https://github.com/oiraqi/immunizer-dashboard)
+  - [Monitor Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/monitor)
+  - [Analyzer Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/analyzer)
+  - [Planner Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/planner)
+  - [Executor Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/executor)
+  - [Dashboard Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/dashboard)
 
 Communication among these modules/layers is based on streams and is performed asynchronously, through brokers.
 
