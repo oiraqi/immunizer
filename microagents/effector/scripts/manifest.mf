@@ -1,0 +1,2 @@
+Premain-Class: org.immunizer.microagents.effector.Effector
+Boot-Class-Path: .:../immunizer-effector/framework/build/libs/agent-libs-1.0.jar

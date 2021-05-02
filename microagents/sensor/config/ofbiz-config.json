@@ -1,0 +1,30 @@
+{
+    "ignore": [
+        "org.apache.ofbiz.webapp",
+        "org.apache.ofbiz.service",
+        "org.apache.ofbiz.base",
+        "org.apache.ofbiz.common",
+        "org.apache.ofbiz.catalina",
+        "org.apache.ofbiz.minilang"
+    ],
+    "apply": {
+        "packages": [
+            "org.apache.ofbiz.accounting",
+            "org.apache.ofbiz.payment",
+            "org.apache.ofbiz.marketing",
+            "org.apache.ofbiz.order",
+            "org.apache.ofbiz.humanres"
+        ],
+        "classes": [
+            {
+                "name": "org.apache.ofbiz.entity.datasource.GenericDAO",
+                "methods": [
+                    {
+                        "name": "update",
+                        "parameters": 1
+                    }
+                ]
+            }
+        ]
+    }
+}

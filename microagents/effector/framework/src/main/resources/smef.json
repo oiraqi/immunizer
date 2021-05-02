@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Attack Signatures per Application Method",
+    "type": "object",
+    "properties": {
+        "method": {
+            "type": "string",
+            "description": "Fully qualified method name"
+        },
+        "signatures": {
+            "type": "array",
+            "description": "Signatures bound to method",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "callstack": {
+                        "type": "string",
+                        "description": "SHA-512 hash of the call stack"
+                    },
+                    "suspects": {
+                        "type": "array",
+                        "description": "suspect parameters and paths",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                            	"parameter": {
+                                    "type": "string",
+                                    "description": "index of suspect parameter"
+                                },
+                                "path": {
+                                    "type": "string",
+                                    "description": "suspect path"
+                                },
+                                "mean": {
+                                    "type": "number",
+                                    "description": "Mean for path"
+                                },
+                                "stdev": {
+                                    "type": "number",
+                                    "description": "Standard deviation for path"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

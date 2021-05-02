@@ -1,0 +1,25 @@
+plugins {
+        id 'java'
+}
+
+group = 'org.immunizer'
+version = '1.0'
+sourceCompatibility = '1.8'
+
+repositories {
+        mavenCentral()
+}
+
+dependencies {
+        implementation 'net.bytebuddy:byte-buddy:1.10.2'
+        implementation 'com.google.code.gson:gson:2.8.6'
+        implementation 'com.google.guava:guava:28.1-jre'
+        implementation 'org.apache.kafka:kafka-clients:2.4.0'
+}
+
+task agentLibs(type: Jar) {
+    manifest { }
+    archiveBaseName = 'agent-libs'
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
