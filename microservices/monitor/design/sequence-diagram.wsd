@@ -1,0 +1,18 @@
+@startuml SequenceDiagram
+participant "Spark Driver" as Master
+collections "Spark Workers" as Workers
+database "Shared Cache" as Cache
+queue "Streaming Broker" as Broker
+Master -> Broker : subscribe to invocation streams, one per context
+Broker --> Master : return invocation streams
+Master -> Workers : submit invocations (flatMap)
+Workers -> Cache : get needed data from\napplication model (V1 - V13)
+Cache --> Workers : return needed data
+Workers -> Workers : extract features (F1 - F5) and\ninvocation meta data (I1 - I10)
+Workers -> Broker : send feature records
+Workers --> Master : return invocations meta data
+Master -> Workers : build batch model out of invocations\nmeta data (map/reduce)
+Workers --> Master : return batch model
+Master -> Workers : update application model with\nbatch model, incrementally (map)
+Workers -> Cache : update application model
+@enduml

@@ -1,0 +1,29 @@
+plugins {
+        id 'java'
+        id 'scala'
+}
+
+group = 'org.immunizer'
+version = '1.0'
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+        mavenCentral()
+}
+
+dependencies {
+        implementation 'com.google.code.gson:gson:2.2.4'
+        implementation 'com.google.guava:guava:28.1-jre'
+        implementation 'org.apache.spark:spark-streaming_2.12:3.0.2'
+        implementation 'org.apache.spark:spark-streaming-kafka-0-10_2.12:3.0.2'
+        implementation 'org.apache.ignite:ignite-spark:2.10.0'
+}
+
+task libs(type: Jar) {
+    zip64 true
+    manifest { }
+    archiveBaseName = 'libs'
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

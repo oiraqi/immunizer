@@ -1,0 +1,29 @@
+
+# Created by https://www.gitignore.io/api/java
+# Edit at https://www.gitignore.io/?templates=java
+
+# Folders To Exclude #
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
+apps/ofbiz/*
+apps/benchmark/*
+!apps/ofbiz/.gitkeep
+!apps/benchmark/pom.xml
+!apps/benchmark/README.txt
+framework/.settings/*
+framework/.vscode/*
+framework/bin/*
+framework/build/*
+framework/com/*
+framework/java/*
+framework/net/*
+models/benchmark/*
+models/ofbiz/*
+!models/benchmark/.gitkeep
+!models/ofbiz/.gitkeep
+out/*
+private/*
+apps/*
+evaluation/*.java
+
+# End of https://www.gitignore.io/api/java

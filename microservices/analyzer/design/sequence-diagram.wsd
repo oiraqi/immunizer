@@ -1,0 +1,21 @@
+@startuml SequenceDiagram
+participant "Spark Driver" as Master
+collections "Spark Workers" as Workers
+database "Shared Cache" as Cache
+queue "Streaming Broker" as Broker
+Master -> Broker : poll new feature records
+Broker --> Master : return new feature records
+Master -> Workers : parallelize new feature records
+Workers --> Master : return a handle on parallelized\nfeature records
+Master -> Workers : buffer new feature records and\n purge old ones per context
+Workers -> Cache : buffer new feature records and\npurge old ones per context
+Master -> Workers : load a batch of feature records per context
+Workers -> Cache : load a batch of feature records\nper context
+Cache --> Workers : return a batch of feature records\nper context
+Workers --> Master : return a handle on the batch of\nfeature records per context
+Master -> Workers : compute LOF of feature records\nper context, rank by LOF desc and\npick top N outliers per context
+Workers --> Master : return top N outliers per context
+Master -> Broker : send top N outliers per context
+Master -> Workers : delete top N outliers per context
+Workers -> Cache : delete top N outliers per context
+@enduml

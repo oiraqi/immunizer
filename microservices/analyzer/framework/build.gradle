@@ -1,0 +1,45 @@
+plugins {
+        id 'scala'
+}
+
+group = 'org.immunizer'
+version = '1.0'
+sourceCompatibility = 11
+targetCompatibility = 11
+
+
+repositories {
+        mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = []
+            outputDir = file("$buildDir/classes/java/main")
+        }
+        scala {
+            srcDirs = ['src/main/scala', 'src/main/java']
+            outputDir = file("$buildDir/classes/scala/main")
+        }
+    }
+}
+
+dependencies {
+        implementation "org.scala-lang:scala-library:2.12.3"
+        // implementation 'org.apache.spark:spark-core_2.12:2.4.5'
+        implementation 'org.apache.spark:spark-mllib_2.12:2.4.5'
+        // implementation 'org.apache.spark:spark-streaming_2.12:3.0.2'
+        // implementation 'org.apache.spark:spark-streaming-kafka-0-10_2.12:3.0.2'
+        implementation 'org.apache.ignite:ignite-spark-2.4:2.8.0'
+        implementation 'com.google.code.gson:gson:2.8.6'
+        implementation 'com.google.guava:guava:28.1-jre'
+        implementation 'org.apache.kafka:kafka-clients:2.4.0'
+}
+
+task libs(type: Jar) {
+    manifest { }
+    archiveBaseName = 'agent-libs'
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
