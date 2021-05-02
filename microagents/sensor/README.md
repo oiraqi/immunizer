@@ -9,10 +9,10 @@ This is the Java implementation of the Sensor Microagent of [Immunizer: A Scalab
 - [Sensor Microagent](https://github.com/oiraqi/immunizer/tree/master/microagents/sensor)
 - [Effector Microagent](https://github.com/oiraqi/immunizer/tree/master/microagents/effector)
 ### Autonomic Protection Microservices
-- [Monitoring Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/monitor)
-- [Analysis Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/analyzer)
-- [Planning Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/planner)
-- [Execution Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/executor)
+- [Monitor Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/monitor)
+- [Analyzer Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/analyzer)
+- [Planner Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/planner)
+- [Executor Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/executor)
 - [Dashboard Microservice](https://github.com/oiraqi/immunizer/tree/master/microservices/dashboard)
 
 ## Dependencies
