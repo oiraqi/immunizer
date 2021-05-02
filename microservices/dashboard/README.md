@@ -4,7 +4,7 @@ This is the Java implementation of the Acquisition Microservice of [Immunizer: A
 
 ## Siblings
 ### Autonomic Protection Microagents
-- [Sensor Microagent](https://github.com/oiraqi/immunizer-sensor)
+- [Sensor Microagent](https://github.com/oiraqi/immunizer/tree/master/microagents/sensor)
 - [Effector Microagent](https://github.com/oiraqi/immunizer-effector)
 ### Autonomic Protection Microservices
 - [Monitoring Microservice](https://github.com/oiraqi/immunizer-monitor)

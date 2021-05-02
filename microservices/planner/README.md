@@ -10,7 +10,7 @@ This is the Java implementation of the Planner Microservice of [Immunizer: A Sca
 
 ## Siblings
 ### Autonomic Protection Microagents
-- [Sensor Microagent](https://github.com/oiraqi/immunizer-sensor)
+- [Sensor Microagent](https://github.com/oiraqi/immunizer/tree/master/microagents/sensor)
 - [Effector Microagent](https://github.com/oiraqi/immunizer-effector)
 ### Autonomic Protection Microservices
 - [Monitor Microservice](https://github.com/oiraqi/immunizer-monitor)
