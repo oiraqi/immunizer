@@ -1,2 +1,2 @@
 Premain-Class: org.immunizer.microagents.sensor.Sensor
-Boot-Class-Path: .:../immunizer-sensor/framework/build/libs/agent-libs-1.0.jar
+Boot-Class-Path: .:../immunizer/microagents/sensor/framework/build/libs/agent-libs-1.0.jar
