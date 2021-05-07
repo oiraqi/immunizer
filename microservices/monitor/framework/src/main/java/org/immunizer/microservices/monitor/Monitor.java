@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class Monitor {
 
-    private static final String BOOTSTRAP_SERVERS = "kafka:9092";
+    private static final String KAFKA_BOOTSTRAP_SERVERS = "kafka:9092";
     private static final String GROUP_ID = "Monitor";
     private static final String TOPIC_PATTERN = "Invocations/.+";
     private static final int BATCH_DURATION = 60;
@@ -26,7 +26,7 @@ public class Monitor {
         DistributedCache cache = new DistributedCache(jsc.sparkContext());
 
         Map<String, Object> kafkaParams = new HashMap<>();
-        kafkaParams.put("bootstrap.servers", BOOTSTRAP_SERVERS);
+        kafkaParams.put("bootstrap.servers", KAFKA_BOOTSTRAP_SERVERS);
         kafkaParams.put("group.id", GROUP_ID);
         kafkaParams.put("enable.auto.commit", "true");
         kafkaParams.put("auto.commit.interval.ms", "1000");
