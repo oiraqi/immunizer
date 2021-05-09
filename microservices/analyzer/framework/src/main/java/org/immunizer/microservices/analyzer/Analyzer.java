@@ -18,8 +18,8 @@ public class Analyzer {
 
     private static final String SPARK_MASTER_URL = "spark://spark-master:7077";
     private static final String APP_NAME = "Analyzer";
-    private static final int BATCH_DURATION = 60;
-    private static final int MIN_BATCH_SIZE = 100;
+    private static final int POLL_PERIOD = 60;
+    private static final int MIN_POLL_SIZE = 100;
     private static final int MAX_BATCH_SIZE = 100000;
     private static final int MIN_POINTS = 1000;
     private static final double OUTLIER_PROBABILITY_THRESHOLD = 0.98;
@@ -30,30 +30,30 @@ public class Analyzer {
         DistributedCache cache = new DistributedCache(sparkSession);
         FeatureRecordConsumer featureRecordConsumer = new FeatureRecordConsumer(sc, cache);
         OutlierProducer outlierProducer = new OutlierProducer();
-        
-        try {
-            while(true) {
-                Iterator<String> contexts = featureRecordConsumer.pollAndGetContexts(
-                                                            BATCH_DURATION,
-                                                            MIN_BATCH_SIZE, MAX_BATCH_SIZE);
 
-                while(contexts.hasNext()) {
+        try {
+            while (true) {
+                Iterator<String> contexts = featureRecordConsumer.pollAndGetContexts(POLL_PERIOD, MIN_POLL_SIZE,
+                        MAX_BATCH_SIZE);
+
+                while (contexts.hasNext()) {
                     String context = contexts.next();
                     Dataset<Row> df = cache.fetch(context);
-                    
+
                     Dataset<Row> lofDS = new LOF().setMinPts(MIN_POINTS).transform(df);
-                    JavaDoubleRDD lofRDD = lofDS.select("lof").toJavaRDD().<Double>map(row -> row.getDouble(0)).mapToDouble(x -> x);
+                    JavaDoubleRDD lofRDD = lofDS.select("lof").toJavaRDD().<Double>map(row -> row.getDouble(0))
+                            .mapToDouble(x -> x);
                     NormalDistribution nd = new NormalDistribution(lofRDD.mean(), lofRDD.stdev());
                     List<Long> outliers = lofDS.toJavaRDD()
-                        .mapToPair(row -> new Tuple2<Long, Double>(row.getLong(0), 2 * nd.cumulativeProbability(row.getDouble(1)) - 1))
-                        .filter(record -> record._2 > OUTLIER_PROBABILITY_THRESHOLD)
-                        .map(record -> record._1)
-                        .collect();
+                            .mapToPair(row -> new Tuple2<Long, Double>(row.getLong(0),
+                                    2 * nd.cumulativeProbability(row.getDouble(1)) - 1))
+                            .filter(record -> record._2 > OUTLIER_PROBABILITY_THRESHOLD).map(record -> record._1)
+                            .collect();
 
                     outliers.forEach(key -> {
                         FeatureRecord fr = cache.get(context, key);
                         outlierProducer.send(fr);
-                        
+
                         // Get rid of these outliers for the next cycle
                         cache.delete(context, key);
                     });
