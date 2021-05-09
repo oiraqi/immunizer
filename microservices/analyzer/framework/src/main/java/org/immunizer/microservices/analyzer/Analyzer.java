@@ -10,6 +10,9 @@ import org.apache.spark.ml.outlier.LOF;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.api.java.JavaDoubleRDD;
+import scala.Tuple2;
+import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class Analyzer {
 
@@ -19,7 +22,7 @@ public class Analyzer {
     private static final int MIN_BATCH_SIZE = 100;
     private static final int MAX_BATCH_SIZE = 100000;
     private static final int MIN_POINTS = 1000;
-    private static final int TOP_OUTLIERS = 10;
+    private static final double OUTLIER_PROBABILITY_THRESHOLD = 0.98;
 
     public static void main(String[] args) throws Exception {
         SparkSession sparkSession = SparkSession.builder().appName(APP_NAME).master(SPARK_MASTER_URL).getOrCreate();
@@ -36,11 +39,18 @@ public class Analyzer {
 
                 while(contexts.hasNext()) {
                     String context = contexts.next();
-                    Dataset<Row> df = cache.fetch(context);                    
-                    List<Row> outliers = new LOF().setMinPts(MIN_POINTS).transform(df)
-                                                    .sort(desc("lof")).takeAsList(TOP_OUTLIERS);
-                    outliers.forEach(outlier -> {
-                        long key = (Long)outlier.get(0);
+                    Dataset<Row> df = cache.fetch(context);
+                    
+                    Dataset<Row> lofDS = new LOF().setMinPts(MIN_POINTS).transform(df);
+                    JavaDoubleRDD lofRDD = lofDS.select("lof").toJavaRDD().<Double>map(row -> row.getDouble(0)).mapToDouble(x -> x);
+                    NormalDistribution nd = new NormalDistribution(lofRDD.mean(), lofRDD.stdev());
+                    List<Long> outliers = lofDS.toJavaRDD()
+                        .mapToPair(row -> new Tuple2<Long, Double>(row.getLong(0), 2 * nd.cumulativeProbability(row.getDouble(1)) - 1))
+                        .filter(record -> record._2 > OUTLIER_PROBABILITY_THRESHOLD)
+                        .map(record -> record._1)
+                        .collect();
+
+                    outliers.forEach(key -> {
                         FeatureRecord fr = cache.get(context, key);
                         outlierProducer.send(fr);
                         

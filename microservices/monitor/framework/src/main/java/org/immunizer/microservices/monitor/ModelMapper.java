@@ -96,8 +96,7 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 	private void createAndSendFeatureRecord() {
 		FeatureRecord fr = new FeatureRecord(callStackId, invocation.get("threadTag").getAsString(),
 				invocation.get("fullyQualifiedMethodName").getAsString(), invocation.get("swid").getAsString(), record);
-		FeatureRecordProducer frp = new FeatureRecordProducer(invocation.get("swid").getAsString());
-		frp.send(fr);
+		new FeatureRecordProducer().send(fr);
 	}
 
 	/**

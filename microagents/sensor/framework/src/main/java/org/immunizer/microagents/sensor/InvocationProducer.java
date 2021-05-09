@@ -10,7 +10,7 @@ public class InvocationProducer {
     private static InvocationProducer singleton;
     private KafkaProducer<String, Invocation> producer;
     private static final String BOOTSTRAP_SERVERS = "kafka:9092";
-    private static final String BASE_TOPIC = "Invocations";
+    private static final String BASE_TOPIC = "INV";
     private String topic;
 
     private InvocationProducer() {

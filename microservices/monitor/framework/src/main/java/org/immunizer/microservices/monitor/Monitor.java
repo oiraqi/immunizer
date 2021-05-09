@@ -17,7 +17,7 @@ public class Monitor {
 
     private static final String KAFKA_BOOTSTRAP_SERVERS = "kafka:9092";
     private static final String GROUP_ID = "Monitor";
-    private static final String TOPIC_PATTERN = "Invocations/.+";
+    private static final String TOPIC_PATTERN = "INV/.+";
     private static final int BATCH_DURATION = 60;
 
     public static void main(String[] args) throws Exception {
