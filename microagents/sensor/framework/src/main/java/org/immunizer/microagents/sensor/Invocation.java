@@ -5,6 +5,7 @@ import com.google.common.hash.Hashing;
 public class Invocation {
 
 	private String swid;
+	private String iid;
 	private String fullyQualifiedMethodName;
 	//private StackTraceElement[] callStack;
 	private Object[] params;
@@ -19,9 +20,10 @@ public class Invocation {
 	// private String threadTag;
 	private String callStackId;
 
-	public Invocation(String swid, String fullyQualifiedMethodName, Object[] params) {
+	public Invocation(String swid, String iid, String fullyQualifiedMethodName, Object[] params) {
 		startTime = System.currentTimeMillis();
 		this.swid = swid;
+		this.iid = iid;
 		this.fullyQualifiedMethodName = fullyQualifiedMethodName;
 		this.params = params;
 		exception = false;

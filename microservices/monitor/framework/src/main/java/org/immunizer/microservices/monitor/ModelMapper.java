@@ -69,20 +69,26 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 
 		cfg.setIgniteInstanceName("Monitor");
 
+		String prefix = invocation.get("swid").getAsString();
+		if(invocation.get("cxid").getAsString() != null) {
+			prefix += '_' + invocation.get("cxid").getAsString();
+		}
+		prefix += '_';
+
 		Ignite ignite = Ignition.getOrStart(cfg);
-		numbersStdevsCache = ignite.cache("numbersStdevs");
-		numbersMeansCache = ignite.cache("numbersMeans");
-		stringLengthsStdevsCache = ignite.cache("stringLengthsStdevs");
-		stringLengthsMeansCache = ignite.cache("stringLengthsMeans");
-		wholeLengthsStdevsCache = ignite.cache("wholeLengthsStdevs");
-		wholeLengthsMeansCache = ignite.cache("wholeLengthsMeans");
-		callStacksCache = ignite.cache("callStacks");
-		pathsCache = ignite.cache("paths");
-		aggPathsCache = ignite.cache("aggPaths");
-		splits1Cache = ignite.cache("splits1");
-		splits3Cache = ignite.cache("splits3");
-		splits1MinFrequenciesCache = ignite.cache("splits1MinFreqSum");
-		splits3MinFrequenciesCache = ignite.cache("splits3MinFreqSum");
+		numbersStdevsCache = ignite.getOrCreateCache(prefix + "numbersStdevs");
+		numbersMeansCache = ignite.getOrCreateCache(prefix + "numbersMeans");
+		stringLengthsStdevsCache = ignite.getOrCreateCache(prefix + "stringLengthsStdevs");
+		stringLengthsMeansCache = ignite.getOrCreateCache(prefix + "stringLengthsMeans");
+		wholeLengthsStdevsCache = ignite.getOrCreateCache(prefix + "wholeLengthsStdevs");
+		wholeLengthsMeansCache = ignite.getOrCreateCache(prefix + "wholeLengthsMeans");
+		callStacksCache = ignite.getOrCreateCache(prefix + "callStacks");
+		pathsCache = ignite.getOrCreateCache(prefix + "paths");
+		aggPathsCache = ignite.getOrCreateCache(prefix + "aggPaths");
+		splits1Cache = ignite.getOrCreateCache(prefix + "splits1");
+		splits3Cache = ignite.getOrCreateCache(prefix + "splits3");
+		splits1MinFrequenciesCache = ignite.getOrCreateCache(prefix + "splits1MinFreqSum");
+		splits3MinFrequenciesCache = ignite.getOrCreateCache(prefix + "splits3MinFreqSum");
 	}
 
 	/**

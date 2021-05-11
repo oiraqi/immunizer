@@ -83,10 +83,15 @@ public class Sensor {
 		br.close();
 
 		Gson gson = new Gson();
-		return gson.fromJson(new String(buffer), Config.class);
+		Config config = gson.fromJson(new String(buffer), Config.class);
+		System.setProperty("swid", config.swid);
+		System.setProperty("iid", config.iid);
+		return config;
 	}
 
 	private static class Config {
+		public String swid;
+		public String iid;
 		public String[] ignore = {};
 		public Apply apply;
 
