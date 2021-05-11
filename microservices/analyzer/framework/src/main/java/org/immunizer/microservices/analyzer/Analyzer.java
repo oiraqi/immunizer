@@ -19,9 +19,9 @@ public class Analyzer {
     private static final String SPARK_MASTER_URL = "spark://spark-master:7077";
     private static final String APP_NAME = "Analyzer";
     private static final int POLL_PERIOD = 60;
-    private static final int MIN_POLL_SIZE = 100;
+    private static final int MIN_POLL_SIZE = 1000;
     private static final int MAX_BATCH_SIZE = 100000;
-    private static final int MIN_POINTS = 1000;
+    private static final int MIN_POINTS = 400;
     private static final double OUTLIER_PROBABILITY_THRESHOLD = 0.98;
 
     public static void main(String[] args) throws Exception {

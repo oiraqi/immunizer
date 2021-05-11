@@ -43,13 +43,13 @@ public class FeatureRecordConsumer {
         this.sc = sc;
     }
 
-    public Iterator<String> pollAndGetContexts(int timeout, int minBatchSize, int maxBatchSize) {
-        ConsumerRecords<String, FeatureRecord> records = consumer.poll(Duration.ofSeconds(timeout));
+    public Iterator<String> pollAndGetContexts(int pollPeriod, int minPollSize, int maxBatchSize) {
+        ConsumerRecords<String, FeatureRecord> records = consumer.poll(Duration.ofSeconds(pollPeriod));
         LinkedList<String> contexts = new LinkedList<>();
 
         for (TopicPartition partition : records.partitions()) {
             List<ConsumerRecord<String, FeatureRecord>> partitionRecords = records.records(partition);
-            if (partitionRecords.size() < minBatchSize)
+            if (partitionRecords.size() < minPollSize)
                 continue;
 
             JavaPairRDD<Long, FeatureRecord> featureRecordsRDD = sc.parallelize(partitionRecords)

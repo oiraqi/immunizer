@@ -13,15 +13,27 @@ public class DistributedCache {
 
     private JavaIgniteContext<String, Double> igniteContext1;
     private JavaIgniteContext<String, Long> igniteContext2;
-    private JavaIgniteRDD<String, Double> numbersStdevsRDD, numbersMeansRDD, stringLengthsStdevsRDD,
-            stringLengthsMeansRDD, wholeLengthsStdevsRDD, wholeLengthsMeansRDD, splits1MinFreqSumRDD,
-            splits3MinFreqSumRDD;
-    private JavaIgniteRDD<String, Long> callStacksRDD, numbersCountsRDD, wholeLengthsCountsRDD, stringLengthsCountsRDD,
-            pathsRDD, aggPathsRDD, splits1RDD, splits3RDD;
+    private JavaIgniteRDD<String, Double> numbersStdevsRDD;
+    private JavaIgniteRDD<String, Double> numbersMeansRDD;
+    private JavaIgniteRDD<String, Double> stringLengthsStdevsRDD;
+    private JavaIgniteRDD<String, Double> stringLengthsMeansRDD;
+    private JavaIgniteRDD<String, Double> wholeLengthsStdevsRDD;
+    private JavaIgniteRDD<String, Double> wholeLengthsMeansRDD;
+    private JavaIgniteRDD<String, Double> splits1MinFreqSumRDD;
+    private JavaIgniteRDD<String, Double> splits3MinFreqSumRDD;
+    private JavaIgniteRDD<String, Long> callStacksRDD;
+    private JavaIgniteRDD<String, Long> numbersCountsRDD;
+    private JavaIgniteRDD<String, Long> wholeLengthsCountsRDD;
+    private JavaIgniteRDD<String, Long> stringLengthsCountsRDD;
+    private JavaIgniteRDD<String, Long> pathsRDD;
+    private JavaIgniteRDD<String, Long> aggPathsRDD;
+    private JavaIgniteRDD<String, Long> splits1RDD;
+    private JavaIgniteRDD<String, Long> splits3RDD;
 
     public DistributedCache(JavaSparkContext sc) {
-        igniteContext1 = new JavaIgniteContext<String, Double>(sc, "immunizer/ignite-cfg.xml");
-        igniteContext2 = new JavaIgniteContext<String, Long>(sc, "immunizer/ignite-cfg.xml");
+
+        igniteContext1 = new JavaIgniteContext<>(sc, "immunizer/ignite-cfg.xml");
+        igniteContext2 = new JavaIgniteContext<>(sc, "immunizer/ignite-cfg.xml");
 
         numbersStdevsRDD = igniteContext1.fromCache("numbersStdevs");
         numbersMeansRDD = igniteContext1.fromCache("numbersMeans");
@@ -37,6 +49,7 @@ public class DistributedCache {
         aggPathsRDD = igniteContext2.fromCache("aggPaths");
         splits1RDD = igniteContext2.fromCache("splits1");
         splits3RDD = igniteContext2.fromCache("splits3");
+        
         /* For frequency smoothing */
         splits1MinFreqSumRDD = igniteContext1.fromCache("splits1MinFreqSum");
         splits3MinFreqSumRDD = igniteContext1.fromCache("splits3MinFreqSum");

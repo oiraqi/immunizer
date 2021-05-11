@@ -26,20 +26,33 @@ import java.util.Collections;
 public class ModelMapper implements FlatMapFunction<byte[], String> {
 
 	private static final long serialVersionUID = 1L;
-	private Ignite ignite;
-	private IgniteCache<String, Double> numbersStdevsCache, numbersMeansCache, stringLengthsStdevsCache,
-			stringLengthsMeansCache, wholeLengthsStdevsCache, wholeLengthsMeansCache, splits1MinFrequenciesCache,
-			splits3MinFrequenciesCache;
-	private IgniteCache<String, Long> callStacksCache, pathsCache, aggPathsCache, splits1Cache, splits3Cache;
+	private transient IgniteCache<String, Double> numbersStdevsCache;
+	private transient IgniteCache<String, Double> numbersMeansCache;
+	private transient IgniteCache<String, Double> stringLengthsStdevsCache;
+	private transient IgniteCache<String, Double>	stringLengthsMeansCache;
+	private transient IgniteCache<String, Double> wholeLengthsStdevsCache;
+	private transient IgniteCache<String, Double> wholeLengthsMeansCache;
+	private transient IgniteCache<String, Double> splits1MinFrequenciesCache;
+	private transient IgniteCache<String, Double>	splits3MinFrequenciesCache;
+	private transient IgniteCache<String, Long> callStacksCache;
+	private transient IgniteCache<String, Long> pathsCache;
+	private transient IgniteCache<String, Long> aggPathsCache;
+	private transient IgniteCache<String, Long> splits1Cache;
+	private transient IgniteCache<String, Long> splits3Cache;
 	private long callStackOccurences;
-	private long[] minPathOccurences, min1Occurences, min3Occurences;
-	private String[] min1AggregatedPathToNode, min3AggregatedPathToNode;
-	private double[] maxNumberVariations, maxStringLengthVariations, wholeLengthVariations;
-	private JsonObject invocation;
+	private long[] minPathOccurences;
+	private long[] min1Occurences;
+	private long[] min3Occurences;
+	private String[] min1AggregatedPathToNode;
+	private String[] min3AggregatedPathToNode;
+	private double[] maxNumberVariations;
+	private double[] maxStringLengthVariations;
+	private double[] wholeLengthVariations;
+	private transient JsonObject invocation;
 	private int numberOfParams;
 	private String callStackId;
-	HashMap<String, String> model = new HashMap<String, String>();
-	HashMap<String, Double> record = new HashMap<String, Double>();
+	HashMap<String, String> model = new HashMap<>();
+	HashMap<String, Double> record = new HashMap<>();
 
 	/**
 	 * Initilaizes Ignite Caches
@@ -56,7 +69,7 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 
 		cfg.setIgniteInstanceName("Monitor");
 
-		ignite = Ignition.getOrStart(cfg);
+		Ignite ignite = Ignition.getOrStart(cfg);
 		numbersStdevsCache = ignite.cache("numbersStdevs");
 		numbersMeansCache = ignite.cache("numbersMeans");
 		stringLengthsStdevsCache = ignite.cache("stringLengthsStdevs");
@@ -116,7 +129,10 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 			return null;
 
 		int length;
-		double splits1MinFrequenciesSum, splits3MinFrequenciesSum, wholeLengthMean, wholeLengthStdev;
+		double splits1MinFrequenciesSum;
+		double splits3MinFrequenciesSum;
+		double wholeLengthMean;
+		double wholeLengthStdev;
 
 		initCaches();
 		initModel();
@@ -309,9 +325,9 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 					(double) min1Occurences[i] / aggPathsCache.get(callStackId + "_" + min1AggregatedPathToNode[i]));
 			record.put("p" + i + "_min_if3",
 					(double) min3Occurences[i] / aggPathsCache.get(callStackId + "_" + min3AggregatedPathToNode[i]));
-			record.put("p" + i + "_length_variation", (double) maxStringLengthVariations[i]);
+			record.put("p" + i + "_length_variation", maxStringLengthVariations[i]);
 		} else if (pi.getAsJsonPrimitive().isNumber()) {
-			record.put("p" + i + "_number_variation", (double) maxNumberVariations[i]);
+			record.put("p" + i + "_number_variation", maxNumberVariations[i]);
 		}
 	}
 
