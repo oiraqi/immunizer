@@ -11,7 +11,7 @@ public class MethodAdvice {
     public static Invocation onEnter(@Advice.Origin String fullyQualifiedMethodName,
             @Advice.AllArguments Object[] params) {
         
-        return new Invocation(System.getProperty("swid"), System.getProperty("iid"), fullyQualifiedMethodName, params);
+        return new Invocation(System.getProperty("swid"), System.getProperty("cxid"), fullyQualifiedMethodName, params);
     }
 
     @Advice.OnMethodExit(onThrowable = Throwable.class)

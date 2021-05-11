@@ -20,7 +20,7 @@ public class InvocationProducer {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.immunizer.microagents.sensor.InvocationSerializer");
         producer = new KafkaProducer<String, Invocation>(props);
-        topic = BASE_TOPIC + '/' + System.getProperty("swid") + '_' + System.getProperty("iid");
+        topic = BASE_TOPIC + '/' + System.getProperty("swid") + '_' + System.getProperty("cxid");
     }
 
     public static InvocationProducer getSingleton() {

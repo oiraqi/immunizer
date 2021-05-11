@@ -1,6 +1,6 @@
 {
     "swid": "OFBIZ-v3.4",
-    "iid": "1",
+    "cxid": "1",
     "ignore": [
         "org.apache.ofbiz.webapp",
         "org.apache.ofbiz.service",

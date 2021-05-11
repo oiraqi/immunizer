@@ -85,13 +85,16 @@ public class Sensor {
 		Gson gson = new Gson();
 		Config config = gson.fromJson(new String(buffer), Config.class);
 		System.setProperty("swid", config.swid);
-		System.setProperty("iid", config.iid);
+		if(config.cxid == null) {
+			config.cxid = "1";
+		}
+		System.setProperty("cxid", config.cxid);
 		return config;
 	}
 
 	private static class Config {
 		public String swid;
-		public String iid;
+		public String cxid;
 		public String[] ignore = {};
 		public Apply apply;
 
@@ -144,7 +147,7 @@ public class Sensor {
 			System.out.println(currentThread.getName());
 			System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 
-			return new Invocation("1.0", fullyQualifiedMethodName, params);
+			return new Invocation(System.getProperty("swid"), System.getProperty("cxid"), fullyQualifiedMethodName, params);
 		}
 
 		@Advice.OnMethodExit
