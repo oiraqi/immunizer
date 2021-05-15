@@ -2,7 +2,6 @@
     "swid": "OFBIZ-v3.4",
     "cxid": "1",
     "ignore": [
-        "org.apache.ofbiz.webapp",
         "org.apache.ofbiz.service",
         "org.apache.ofbiz.base",
         "org.apache.ofbiz.common",
@@ -24,6 +23,16 @@
                     {
                         "name": "update",
                         "parameters": 1
+                    }
+                ]
+            },
+            {
+                "name": "org.apache.ofbiz.webapp.control.ControlFilter",
+                "methods": [
+                    {
+                        "name": "doFilter",
+                        "parameters": 3,
+                        "entry": true
                     }
                 ]
             }

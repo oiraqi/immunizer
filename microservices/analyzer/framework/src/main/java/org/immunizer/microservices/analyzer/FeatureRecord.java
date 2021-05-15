@@ -8,38 +8,65 @@ public class FeatureRecord implements Serializable {
     private static final long serialVersionUID = 1354353L;
 
     private String callStackId;
-    private String threadTag;
-    private long startTime;
-    private long endTime;
+    private String tag;
+    private String label;
     private String swid;
+    private String cxid;
     private String fullyQualifiedMethodName;
     private Map<String, Double> record;
-    private String parameters;
-    private String result;
+
+    public void setCallStackId(String callStackId) {
+        this.callStackId = callStackId;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setSwid(String swid) {
+        this.swid = swid;
+    }
+
+    public void setCxid(String cxid) {
+        this.cxid = cxid;
+    }
+
+    public void setFullyQualifiedMethodName(String fullyQualifiedMethodName) {
+        this.fullyQualifiedMethodName = fullyQualifiedMethodName;
+    }
+
+    public void setRecord(Map<String, Double> record) {
+        this.record = record;
+    }
 
     protected FeatureRecord() {
     }
 
-    public FeatureRecord(String callStackId, String threadTag, long startTime, long endTime,
-            String fullyQualifiedMethodName, String swid, Map<String, Double> record, String parameters,
-            String result) {
+    public FeatureRecord(String callStackId, String tag, String label,
+            String fullyQualifiedMethodName, String swid, String cxid, Map<String, Double> record) {
         this.callStackId = callStackId;
-        this.threadTag = threadTag;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.tag = tag;
+        this.label = label;
         this.fullyQualifiedMethodName = fullyQualifiedMethodName;
         this.swid = swid;
+        this.cxid = cxid;
         this.record = record;
-        this.parameters = parameters;
-        this.result = result;
     }
 
     public String getCallStackId() {
         return callStackId;
     }
 
-    public String getThreadTag() {
-        return threadTag;
+    public String getTag() {
+        return tag;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public String getFullyQualifiedMethodName() {
@@ -50,31 +77,11 @@ public class FeatureRecord implements Serializable {
         return swid;
     }
 
+    public String getCxid() {
+        return cxid;
+    }
+
     public Map<String, Double> getRecord() {
         return record;
-    }
-
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public long getEndTime() {
-        return endTime;
-    }
-
-    public String getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(String parameters) {
-        this.parameters = parameters;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
     }
 }

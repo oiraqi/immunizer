@@ -56,7 +56,7 @@ public class FeatureRecordConsumer {
                     .mapToPair(record -> new Tuple2<Long, FeatureRecord>(record.offset(), record.value()));
 
             String context = partitionRecords.get(0).value().getSwid() + '_'
-                    + partitionRecords.get(0).value().getIid() + '/'
+                    + partitionRecords.get(0).value().getCxid() + '/'
                     + partitionRecords.get(0).value().getCallStackId();
 
             cache.save(context, featureRecordsRDD);

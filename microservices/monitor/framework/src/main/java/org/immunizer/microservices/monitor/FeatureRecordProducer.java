@@ -21,10 +21,10 @@ public class FeatureRecordProducer implements Serializable {
         props.put("acks", "all");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.immunizer.microservices.monitor.FeatureRecordSerializer");
-        producer = new KafkaProducer<String, FeatureRecord>(props);
+        producer = new KafkaProducer<>(props);
     }
 
     public void send(FeatureRecord featureRecord) {
-        producer.send(new ProducerRecord<String, FeatureRecord>(BASE_TOPIC + featureRecord.getSwid() + '_' + featureRecord.getCallStackId(), 0, "0", featureRecord));
+        producer.send(new ProducerRecord<>(BASE_TOPIC + featureRecord.getSwid() + '_' + featureRecord.getCallStackId(), 0, "0", featureRecord));
     }
 }

@@ -14,8 +14,6 @@ import net.bytebuddy.matcher.ElementMatcher.Junction;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
-import java.util.Random;
-
 import com.google.gson.Gson;
 
 public class Sensor {
@@ -54,15 +52,15 @@ public class Sensor {
 						mtc = mtc.and(takesArguments(method.parameters));
 					}
 					if (matcher == any) {
-						matcher = matcher.and(mtc);
+						matcher = mtc;
 					} else {
 						matcher = matcher.or(mtc);
 					}
 				}
 				if (extendable == null) {
-					extendable = builder.type(named(clazz.name)).transform(new MethodTransformer(matcher));
+					extendable = builder.type(named(clazz.name)).transform(new MethodTransformer(matcher, clazz.entry));
 				} else {
-					extendable = extendable.type(named(clazz.name)).transform(new MethodTransformer(matcher));
+					extendable = extendable.type(named(clazz.name)).transform(new MethodTransformer(matcher, clazz.entry));
 				}
 			}
 			if (extendable != null) {
@@ -105,55 +103,13 @@ public class Sensor {
 			public class Class {
 				public String name;
 				public Method[] methods = {};
+				public boolean entry = false;
 
 				public class Method {
 					public String name;
 					public int parameters = 0;
 				}
 			}
-		}
-	}
-
-	public static class ControllerMethodAdvice {
-
-		@Advice.OnMethodEnter
-		public static Invocation onEnter(
-				/* @Advice.This Object object, */@Advice.Origin String fullyQualifiedMethodName,
-				@Advice.AllArguments Object[] params) {
-
-			String userAgent = null;
-			String type = "Genuine";
-			try {
-				userAgent = (String) params[0].getClass().getMethod("getHeader", java.lang.String.class)
-						.invoke(params[0], "User-Agent");
-				if (userAgent == null || !userAgent.equals("JMeter")) {
-					type = "Malicious"; /**
-										 * Label it as true positive, just for automatic evaluation of intrusion/oulier
-										 * detection results
-										 */
-				}
-			} catch (Exception ex) {
-			}
-			long threadTag = Math.abs(new Random().nextLong());
-			Thread currentThread = Thread.currentThread();
-			int index = currentThread.getName().indexOf("#");
-			if (index > 0) {
-				String threadBasicName = currentThread.getName().substring(0, index + 1);
-				currentThread.setName(threadBasicName + threadTag + ' ' + type);
-			} else
-				currentThread.setName(currentThread.getName() + "#" + threadTag + ' ' + type);
-
-			System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-			System.out.println(currentThread.getName());
-			System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-
-			return new Invocation(System.getProperty("swid"), System.getProperty("cxid"), fullyQualifiedMethodName, params);
-		}
-
-		@Advice.OnMethodExit
-		public static void onExit(@Advice.Enter Invocation invocation,
-				@Advice.Return(typing = Assigner.Typing.DYNAMIC) Object result) {
-			// Do nothing here
 		}
 	}
 }

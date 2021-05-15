@@ -29,11 +29,11 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 	private transient IgniteCache<String, Double> numbersStdevsCache;
 	private transient IgniteCache<String, Double> numbersMeansCache;
 	private transient IgniteCache<String, Double> stringLengthsStdevsCache;
-	private transient IgniteCache<String, Double>	stringLengthsMeansCache;
+	private transient IgniteCache<String, Double> stringLengthsMeansCache;
 	private transient IgniteCache<String, Double> wholeLengthsStdevsCache;
 	private transient IgniteCache<String, Double> wholeLengthsMeansCache;
 	private transient IgniteCache<String, Double> splits1MinFrequenciesCache;
-	private transient IgniteCache<String, Double>	splits3MinFrequenciesCache;
+	private transient IgniteCache<String, Double> splits3MinFrequenciesCache;
 	private transient IgniteCache<String, Long> callStacksCache;
 	private transient IgniteCache<String, Long> pathsCache;
 	private transient IgniteCache<String, Long> aggPathsCache;
@@ -70,7 +70,7 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 		cfg.setIgniteInstanceName("Monitor");
 
 		String prefix = invocation.get("swid").getAsString();
-		if(invocation.get("cxid").getAsString() != null) {
+		if (invocation.get("cxid").getAsString() != null) {
 			prefix += '_' + invocation.get("cxid").getAsString();
 		}
 		prefix += '_';
@@ -113,8 +113,9 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 	 * Kafka
 	 */
 	private void createAndSendFeatureRecord() {
-		FeatureRecord fr = new FeatureRecord(callStackId, invocation.get("threadTag").getAsString(),
-				invocation.get("fullyQualifiedMethodName").getAsString(), invocation.get("swid").getAsString(), record);
+		FeatureRecord fr = new FeatureRecord(callStackId, invocation.get("tag").getAsString(),
+				invocation.get("label").getAsString(), invocation.get("fullyQualifiedMethodName").getAsString(),
+				invocation.get("swid").getAsString(), invocation.get("cxid").getAsString(), record);
 		new FeatureRecordProducer().send(fr);
 	}
 
