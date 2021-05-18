@@ -55,7 +55,7 @@ public class FeatureRecordConsumer {
             JavaPairRDD<Long, FeatureRecord> featureRecordsRDD = sc.parallelize(partitionRecords)
                     .mapToPair(record -> new Tuple2<Long, FeatureRecord>(record.offset(), record.value()));
 
-            String context = partitionRecords.get(0).value().getSwid() + '_'
+            String context = partitionRecords.get(0).value().getSwid() + '/'
                     + partitionRecords.get(0).value().getCxid() + '/'
                     + partitionRecords.get(0).value().getCallStackId();
 
