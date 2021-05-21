@@ -12,10 +12,9 @@ public class EntryAdvice {
             /* @Advice.This Object object, */@Advice.Origin String fullyQualifiedMethodName,
             @Advice.AllArguments Object[] params) {
 
-        String userAgent = null;
         String label = "Genuine";
         try {
-            userAgent = (String) params[0].getClass().getMethod("getHeader", java.lang.String.class)
+            String userAgent = (String) params[0].getClass().getMethod("getHeader", java.lang.String.class)
                     .invoke(params[0], "User-Agent");
             if (userAgent == null || !userAgent.equals("JMeter")) {
                 label = "Malicious"; /**
