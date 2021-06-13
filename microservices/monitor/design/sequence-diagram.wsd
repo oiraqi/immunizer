@@ -8,10 +8,10 @@ Broker --> Master : return invocation streams
 Master -> Workers : submit invocations (flatMap)
 Workers -> Cache : get needed data from\napplication model (V1 - V13)
 Cache --> Workers : return needed data
-Workers -> Workers : extract features (F1 - F5) and\ninvocation meta data (I1 - I10)
+Workers -> Workers : extract features (F1 - F5) and\ninvocation meta data (I1 - I6)
 Workers -> Broker : send feature records
-Workers --> Master : return invocations meta data
-Master -> Workers : build batch model out of invocations\nmeta data (map/reduce)
+Workers --> Master : return invocation meta data
+Master -> Workers : build batch model out of invocation\nmeta data (map/reduce)
 Workers --> Master : return batch model
 Master -> Workers : update application model with\nbatch model, incrementally (map)
 Workers -> Cache : update application model

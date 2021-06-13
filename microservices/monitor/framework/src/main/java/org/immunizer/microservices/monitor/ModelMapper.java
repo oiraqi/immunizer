@@ -144,12 +144,6 @@ public class ModelMapper implements FlatMapFunction<byte[], String> {
 		initCaches();
 		initModel();
 
-		String prefix = invocation.get("swid").getAsString();
-		if (invocation.get("cxid").getAsString() != null) {
-			prefix += '_' + invocation.get("cxid").getAsString();
-		}
-		prefix += '_';
-
 		for (int i = 0; i < numberOfParams; i++) {
 			JsonElement pi = parameters.get(i);
 			length = pi.toString().length();
