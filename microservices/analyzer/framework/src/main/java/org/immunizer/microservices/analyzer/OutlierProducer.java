@@ -13,7 +13,7 @@ public class OutlierProducer implements Serializable {
 
     private transient KafkaProducer<String, FeatureRecord> producer;
     private static final String BOOTSTRAP_SERVERS = "localhost:29092";
-    private static final String BASE_TOPIC = "OTL";
+    private static final String BASE_TOPIC = "OTL/";
 
     public OutlierProducer() {
         Properties props = new Properties();
@@ -25,8 +25,8 @@ public class OutlierProducer implements Serializable {
     }
 
     public void send(FeatureRecord featureRecord) {
-        producer.send(new ProducerRecord<>(BASE_TOPIC + '/' + featureRecord.getSwid(),
-                featureRecord.getCallStackId(), featureRecord));
+        producer.send(new ProducerRecord<>(BASE_TOPIC + featureRecord.getSwId() + '_' + featureRecord.getIcxId()
+                + '_' + featureRecord.getCallStackId(), 0, "0", featureRecord));
     }
 
     public void close() {

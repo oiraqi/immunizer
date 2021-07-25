@@ -43,7 +43,7 @@ public class FeatureRecordConsumer {
         this.sc = sc;
     }
 
-    public Iterator<String> pollAndGetContexts(int pollPeriod, int minPollSize, int maxBatchSize) {
+    public Iterator<String> pollAndGetContexts(int pollPeriod, int minPollSize, int minBatchSize, int maxBatchSize) {
         ConsumerRecords<String, FeatureRecord> records = consumer.poll(Duration.ofSeconds(pollPeriod));
         LinkedList<String> contexts = new LinkedList<>();
 
@@ -55,8 +55,8 @@ public class FeatureRecordConsumer {
             JavaPairRDD<Long, FeatureRecord> featureRecordsRDD = sc.parallelize(partitionRecords)
                     .mapToPair(record -> new Tuple2<Long, FeatureRecord>(record.offset(), record.value()));
 
-            String context = partitionRecords.get(0).value().getSwid() + '/'
-                    + partitionRecords.get(0).value().getCxid() + '/'
+            String context = partitionRecords.get(0).value().getSwId() + '/'
+                    + partitionRecords.get(0).value().getIcxId() + '/'
                     + partitionRecords.get(0).value().getCallStackId();
 
             cache.save(context, featureRecordsRDD);
@@ -64,9 +64,11 @@ public class FeatureRecordConsumer {
             long lastOffset = partitionRecords.get(partitionRecords.size() - 1).offset();
             consumer.commitSync(Collections.singletonMap(partition, new OffsetAndMetadata(lastOffset + 1)));
 
-            if (lastOffset >= maxBatchSize) {
+            if (lastOffset >= minBatchSize) {
                 contexts.add(context);
-                cache.purge(context, lastOffset - maxBatchSize);
+                if (lastOffset >= maxBatchSize) {
+                    cache.purge(context, lastOffset - maxBatchSize);
+                }
             }
         }
         return contexts.iterator();
