@@ -1,3 +1,7 @@
+# Folders To Exclude
+.gradle
+.build
+
 # Compiled class file
 *.class
 
