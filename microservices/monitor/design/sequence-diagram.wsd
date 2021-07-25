@@ -5,14 +5,14 @@ database "Shared Cache" as Cache
 queue "Streaming Broker" as Broker
 Master -> Broker : subscribe to invocation streams, one per context
 Broker --> Master : return invocation streams
-Master -> Workers : submit invocations (flatMap)
-Workers -> Cache : get needed data from\napplication model (V1 - V13)
+Master -> Workers : parallelize and submit invocations\nfor feature (F1 - F5) and invocation\nmeta data (I1 - I6) extraction
+Workers -> Cache : get data from\napplication model (V1 - V14)\nneeded for feature extraction
 Cache --> Workers : return needed data
-Workers -> Workers : extract features (F1 - F5) and\ninvocation meta data (I1 - I6)
-Workers -> Broker : send feature records
-Workers --> Master : return invocation meta data
-Master -> Workers : build batch model out of invocation\nmeta data (map/reduce)
-Workers --> Master : return batch model
-Master -> Workers : update application model with\nbatch model, incrementally (map)
+Workers -> Broker : send feature (F1 - F5) record
+Workers --> Master : return invocation meta data\n(I1 - I6) stream handler
+Master -> Workers : discritize invocation meta data\nstream into batches
+Master -> Workers : build batch model out of each\ninvocation meta data batch
+Workers --> Master : return batch model handler
+Master -> Workers : update application model with\nbatch model, incrementally
 Workers -> Cache : update application model
 @enduml

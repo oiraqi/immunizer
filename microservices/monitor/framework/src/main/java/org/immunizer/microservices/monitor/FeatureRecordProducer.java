@@ -25,6 +25,7 @@ public class FeatureRecordProducer implements Serializable {
     }
 
     public void send(FeatureRecord featureRecord) {
-        producer.send(new ProducerRecord<>(BASE_TOPIC + featureRecord.getSwid() + '_' + featureRecord.getCallStackId(), 0, "0", featureRecord));
+        producer.send(new ProducerRecord<>(BASE_TOPIC + featureRecord.getSwId() + '_' + featureRecord.getIcxId() + '_'
+                + featureRecord.getCallStackId(), 0, "0", featureRecord));
     }
 }
