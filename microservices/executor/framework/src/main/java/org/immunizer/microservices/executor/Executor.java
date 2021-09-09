@@ -16,12 +16,12 @@ import java.util.regex.Pattern;
 public class Executor {
 
     private static final String KAFKA_BOOTSTRAP_SERVERS = "kafka:9092";
-    private static final String GROUP_ID = "Monitor";
-    private static final String TOPIC_PATTERN = "INV/.+";
+    private static final String GROUP_ID = "Executor";
+    private static final String TOPIC_PATTERN = "SPC/.+";
     private static final int BATCH_DURATION = 60;
 
     public static void main(String[] args) throws Exception {
-        SparkConf sparkConf = new SparkConf().setAppName("Monitor").setMaster("spark://spark-master:7077");
+        SparkConf sparkConf = new SparkConf().setAppName("Executor").setMaster("spark://spark-master:7077");
         JavaStreamingContext jsc = new JavaStreamingContext(sparkConf, Durations.seconds(BATCH_DURATION));
         // DistributedCache cache = new DistributedCache(jsc.sparkContext());
 
