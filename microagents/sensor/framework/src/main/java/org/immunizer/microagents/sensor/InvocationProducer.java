@@ -11,7 +11,7 @@ public class InvocationProducer {
     private KafkaProducer<String, Invocation> producer;
     private static final String BOOTSTRAP_SERVERS = "kafka:9092";
     private static final String BASE_TOPIC = "INV";
-    private String topic;
+    private String appTopic;
 
     private InvocationProducer() {
         Properties props = new Properties();
@@ -19,8 +19,8 @@ public class InvocationProducer {
         props.put("acks", "all");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.immunizer.microagents.sensor.InvocationSerializer");
-        producer = new KafkaProducer<String, Invocation>(props);
-        topic = BASE_TOPIC + '/' + System.getProperty("swid") + '_' + System.getProperty("cxid");
+        producer = new KafkaProducer<>(props);
+        appTopic = BASE_TOPIC + '/' + System.getProperty("swid") + '_' + System.getProperty("cxid");
     }
 
     public static InvocationProducer getSingleton() {
@@ -33,11 +33,13 @@ public class InvocationProducer {
     public void send(Invocation invocation) {
         try{
             System.out.print("XXXXXXXXXXXXXXXXX PRODUCER XXXXXXXXXXXXXXXX");
+            String topic = appTopic + '_' + invocation.getFullyQualifiedMethodName();
             System.out.println("Topic: " + topic);
             System.out.println("Invocation: " + invocation);
-            producer.send(new ProducerRecord<String, Invocation>(topic, invocation.getCallStackId(), invocation));
+            producer.send(new ProducerRecord<>(topic, invocation.getCallStackId(), invocation));
             System.out.print("XXXXXXXXXXXXXXXXX PRODUCER XXXXXXXXXXXXXXXX");
         } catch(Throwable th) {
+            // Handle silently
         }
     }
 }
